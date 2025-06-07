@@ -252,6 +252,11 @@ action toggleAdvancedMode {
   fn: import { toggleAdvancedMode } from "@server/preferences.ts",
   entities: [User]
 }
+action SummarizeConversation {
+  fn: import { summarizeConversation } from "@server/ai/summarize.ts",
+  entities: []
+}
+
 
 query getPublicUser {
   fn: import { getPublicUser } from "@server/preferences.ts",
