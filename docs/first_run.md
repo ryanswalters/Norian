@@ -4,14 +4,15 @@
    ```bash
    curl -sSL https://get.wasp.sh/installer.sh | sh
    ```
-2. Clone this repository and run the bootstrap script:
+2. Clone this repository and run the setup script:
    ```bash
    git clone https://github.com/ryanswalters/Norian.git
    cd Norian
-   ./scripts/dev_bootstrap.sh
-   ```
+  ./scripts/setup-dev.sh
+  ```
+The script installs dependencies, runs database migrations, seeds demo data, and creates `.env.server` if missing. It will exit with instructions if dependencies cannot be fetched.
 
-The script installs dependencies, runs database migrations, seeds demo data, creates `.env.server` if missing and starts the dev server at `http://localhost:3000`.
+Run `scripts/dev_bootstrap.sh` afterwards if you want the server started automatically.
 
 ## Troubleshooting
 
@@ -26,3 +27,7 @@ If the `@vitest/coverage-v8` package is missing, add it with:
 ```bash
 npm --prefix template/app install -D @vitest/coverage-v8
 ```
+
+## Known Issues
+
+Tests and coverage need internet access to install dev dependencies. If running in an offline or restricted environment, run `scripts/setup-dev.sh` on a machine with internet first, or manually install the packages specified in `package.json`.

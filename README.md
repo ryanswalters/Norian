@@ -56,7 +56,9 @@ npm install
 wasp start
 ```
 
-For convenience, run `scripts/dev_bootstrap.sh` to install deps, migrate, seed, and start the server.
+For convenience, run `scripts/setup-dev.sh` to install dependencies and set up the database. It will abort with a helpful message if packages cannot be installed (for example when network access is disabled).
+
+`scripts/dev_bootstrap.sh` is still available to automate a full start of the development server after setup.
 
 See `docs/first_run.md` for a detailed first-time setup walkthrough.
 
@@ -102,6 +104,16 @@ Norian is the official frontend for:
 - Plugin loading + task delegation
 - Memory export/import system
 - Tier-based quota enforcement
+
+## Known Issues
+
+Tests and coverage reports require internet access to install dev dependencies.
+In restricted environments (e.g., air-gapped CI or devcontainers without
+network), run `scripts/setup-dev.sh` on a machine with internet first, or
+manually install the packages listed in `package.json`. After dependencies are
+installed you can run `npm test` and `npm run coverage` locally.
+
+## 🛡 License
 
 ## 🛡 License
 

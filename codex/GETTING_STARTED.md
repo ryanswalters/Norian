@@ -9,13 +9,14 @@
 ```bash
 # Install Wasp CLI
 curl -sSL https://get.wasp.sh/installer.sh | sh
-wasp new -t saas
-cd template/app
-npm install
-cp .env.server.example .env.server
-wasp db migrate-dev
-wasp db seed
+
+# Clone the repo
+git clone https://github.com/ryanswalters/Norian.git
+cd Norian
+
+# Run setup
+./scripts/setup-dev.sh
 wasp start
 ```
 
-This will start the development server at http://localhost:3000.
+This will start the development server at http://localhost:3000. If dependency installation fails, make sure you have internet access or manually install the packages listed in `package.json`.
