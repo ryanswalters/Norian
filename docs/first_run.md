@@ -21,10 +21,16 @@ Run `scripts/dev_bootstrap.sh` afterwards if you want the server started automat
 
 ## Troubleshooting
 
-If `npm run coverage` fails with `vitest: not found`, ensure dev dependencies are installed:
+If `npm run coverage` fails with `vitest: not found`, ensure dev dependencies are installed and that the Wasp CLI is available:
 
 ```bash
 npm --prefix template/app install
+
+wasp --version
+```
+If the command is missing, install Wasp with:
+```bash
+curl -sSL https://get.wasp.sh/installer.sh | sh
 ```
 
 If the `@vitest/coverage-v8` package is missing, add it with:

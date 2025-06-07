@@ -27,6 +27,18 @@ if ! command -v wasp >/dev/null; then
   exit 1
 fi
 
+wasp_version=$(wasp --version | awk '{print $2}')
+required_wasp_major=0
+if [ -z "$wasp_version" ]; then
+  echo "Failed to detect Wasp CLI version." >&2
+  exit 1
+fi
+wasp_major=$(echo "$wasp_version" | cut -d'.' -f1)
+if [ "$wasp_major" -lt "$required_wasp_major" ]; then
+  echo "Wasp CLI version $wasp_version detected. Please upgrade to the latest release." >&2
+  exit 1
+fi
+
 if ! touch .setup_write_test 2>/dev/null; then
   echo "Write permission required in $(pwd)." >&2
   exit 1
@@ -37,6 +49,11 @@ fi
 echo "Installing project dependencies..."
 if ! npm --prefix template/app install; then
   echo "Dependency installation failed. Ensure this environment has internet access or a local npm cache." >&2
+  exit 1
+fi
+
+if [ ! -x template/app/node_modules/.bin/vitest ]; then
+  echo "Vitest was not installed correctly. Check your network connection or npm cache and rerun this script." >&2
   exit 1
 fi
 

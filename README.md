@@ -39,7 +39,7 @@ norian/
 ## 🚀 Getting Started
 
 ```bash
-# Install the Wasp CLI
+# Install the Wasp CLI (needed for dev server and E2E tests)
 curl -sSL https://get.wasp.sh/installer.sh | sh
 
 # (Optional) create a new SaaS project
@@ -57,6 +57,7 @@ wasp start
 ```
 
 For convenience, run `scripts/setup-dev.sh` to install dependencies and set up the database. The script automatically verifies that **Node.js 18+** is installed and that the current directory is writable before attempting to install packages. It fails early with a clear error message if the requirements aren't met or if packages can't be fetched (for example when network access is disabled).
+The script also checks for the Wasp CLI and ensures that Vitest is installed so tests can run locally.
 
 Once the server is running, open [http://localhost:3000/preview](http://localhost:3000/preview) to confirm that the backend is live and test agent replies in real time.
 

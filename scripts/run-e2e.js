@@ -2,6 +2,11 @@ const http = require('http');
 const { spawn } = require('child_process');
 const which = require('which');
 
+if (!which.sync('wasp', { nothrow: true })) {
+  console.error('Wasp CLI not found. Install it with `npm install -g @wasp/cli` or `curl -sSL https://get.wasp.sh/installer.sh | sh`.');
+  process.exit(1);
+}
+
 const PORT = process.env.PORT || 3000;
 
 function checkServer() {
@@ -25,10 +30,6 @@ async function waitForServer(maxAttempts = 20) {
 (async () => {
   let serverProc;
   if (!(await checkServer())) {
-    if (!which.sync('wasp', { nothrow: true })) {
-      console.error('Wasp CLI not found. Please install it and run `wasp start` in another terminal.');
-      process.exit(1);
-    }
     console.log('Backend not detected, starting with "wasp start"...');
     serverProc = spawn('wasp', ['start'], { cwd: 'template/app', stdio: 'inherit' });
     const ok = await waitForServer();
