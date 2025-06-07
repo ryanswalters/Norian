@@ -22,9 +22,7 @@ export default function AdminPage() {
     }
   }, [user, navigate]);
 
-  if (!user?.isDev) {
-    return <div className='py-10'>Access Denied</div>;
-  }
+  // Authorization check handled in useEffect; redundant rendering removed.
 
   const handleInject = async () => {
     if (!newEntry.trim()) return;
