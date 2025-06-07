@@ -151,6 +151,12 @@ page ProfilePage {
   component: import ProfilePage from "@src/client/pages/ProfilePage"
 }
 
+route PreferencesRoute { path: "/preferences", to: PreferencesPage }
+page PreferencesPage {
+  authRequired: true,
+  component: import PreferencesPage from "@src/client/pages/PreferencesPage"
+}
+
 route PersonalitiesRoute { path: "/personalities", to: PersonalitiesPage }
 page PersonalitiesPage {
   authRequired: true,
@@ -214,6 +220,11 @@ action AskAgent {
 
 action LogMemory {
   fn: import { logMemory } from "@server/ai/memory.ts",
+  entities: []
+}
+
+query getMemoryEntries {
+  fn: import { getMemoryEntries } from "@server/ai/memory.ts",
   entities: []
 }
 

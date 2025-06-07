@@ -16,6 +16,8 @@ model User {
   isAdmin                   Boolean         @default(false)
   isDev                     Boolean         @default(false)
   isPublic                  Boolean         @default(false)
+  isSubscribed              Boolean         @default(false)
+  demoMode                  Boolean         @default(false)
   displayName               String?
   preferencesJson           String?
   preferences               Preferences?
@@ -123,5 +125,11 @@ model Preferences {
   useMemory      Boolean  @default(false)
   loadSaved      Boolean  @default(false)
   usePersonality Boolean  @default(false)
+  favoriteMusic  String?
+  favoriteFood   String?
+  sleepPattern   String?
+  autoLearn      Boolean  @default(false)
+  promptBeforeSave Boolean @default(true)
+  publicPreference Boolean @default(false)
   updatedAt      DateTime @updatedAt
 }

@@ -10,6 +10,8 @@ export default function AppPage() {
   const [loading, setLoading] = useState(false);
   const personalities = ['default', 'mentor', 'sarcastic', 'stoic', 'flirty', 'cowboy'];
   const [selected, setSelected] = useState<string>(() => localStorage.getItem('personality') || 'default');
+  const voiceStyles = ['neutral', 'stoic', 'friendly', 'sarcastic', 'flirty', 'cowboy'];
+  const [voiceStyle, setVoiceStyle] = useState<string>('neutral');
 
   useEffect(() => {
     localStorage.setItem('personality', selected);
@@ -17,8 +19,17 @@ export default function AppPage() {
 
   const speak = (text: string) => {
     const utter = new SpeechSynthesisUtterance(text);
-    if (selected === 'flirty') utter.pitch = 1.2;
-    if (selected === 'stoic') utter.rate = 0.9;
+    const map: Record<string, { pitch: number; rate: number }> = {
+      neutral: { pitch: 1, rate: 1 },
+      stoic: { pitch: 0.9, rate: 0.95 },
+      friendly: { pitch: 1.1, rate: 1 },
+      sarcastic: { pitch: 1, rate: 1.05 },
+      flirty: { pitch: 1.2, rate: 1 },
+      cowboy: { pitch: 0.85, rate: 0.9 },
+    };
+    const cfg = map[voiceStyle] || map.neutral;
+    utter.pitch = cfg.pitch;
+    utter.rate = cfg.rate;
     window.speechSynthesis.speak(utter);
   };
 
@@ -60,15 +71,25 @@ export default function AppPage() {
   return (
     <div className='py-10 space-y-6'>
       <h1 className='text-4xl font-bold'>Dashboard</h1>
-      <div>
-        <label className='mr-2'>Personality:</label>
-        <select value={selected} onChange={(e) => setSelected(e.target.value)} className='border p-1 rounded'>
-          {personalities.map((p) => (
-            <option key={p} value={p}>
-              {p}
-            </option>
-          ))}
-        </select>
+      <div className='space-y-2'>
+        <div>
+          <label className='mr-2'>Personality:</label>
+          <select value={selected} onChange={(e) => setSelected(e.target.value)} className='border p-1 rounded'>
+            {personalities.map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className='mr-2'>Voice style:</label>
+          <select value={voiceStyle} onChange={(e)=>setVoiceStyle(e.target.value)} className='border p-1 rounded'>
+            {voiceStyles.map((v)=>(
+              <option key={v} value={v}>{v}</option>
+            ))}
+          </select>
+        </div>
       </div>
       <div className='space-y-3'>
         {messages.map((m, idx) => (

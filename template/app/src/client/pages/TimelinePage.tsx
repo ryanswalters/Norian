@@ -1,12 +1,8 @@
-import { useState } from 'react';
-
-const events = [
-  { type: 'memory', content: 'User asked about Norian', timestamp: '2025-06-07T14:23Z' },
-  { type: 'preference', content: "User favored 'lofi music'", timestamp: '2025-06-06T18:02Z' },
-  { type: 'agent', content: "Response returned: 'Norian is online.'", timestamp: '2025-06-06T18:03Z' },
-];
+import { useQuery, getMemoryEntries } from 'wasp/client/operations';
 
 export default function TimelinePage() {
+  const { data } = useQuery(getMemoryEntries);
+  const events = data || [];
   return (
     <div className='py-10 space-y-6'>
       <h1 className='text-4xl font-bold'>AI Memory Journal</h1>
@@ -14,7 +10,7 @@ export default function TimelinePage() {
         {events.map((e, i) => (
           <li key={i} className='mb-4'>
             <div className='text-sm text-gray-400'>{e.timestamp}</div>
-            <div className='text-base'>
+            <div className={`text-base ${e.type === 'memory' ? 'text-blue-700' : e.type === 'preference' ? 'text-green-700' : 'text-purple-700'}`}> 
               {e.type.toUpperCase()}: {e.content}
             </div>
           </li>

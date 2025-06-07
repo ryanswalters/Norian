@@ -9,3 +9,11 @@ export const logMemory = async (_args: { memory: string }, context: any) => {
   );
   return { status: 'ok' };
 };
+
+export const getMemoryEntries = async (_args: void, context: any) => {
+  const token = context.user?.token;
+  const res = await axios.get(process.env.AXYN_API_URL + '/api/mind/list', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+};

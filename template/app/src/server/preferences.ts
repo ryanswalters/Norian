@@ -13,7 +13,17 @@ export const getPreferences: GetPreferences<void, any> = async (_args, context) 
   }
   const prefs = await context.entities.Preferences.findUnique({ where: { userId: context.user.id } });
   if (!prefs) {
-    return { useMemory: false, loadSaved: false, usePersonality: false };
+    return {
+      useMemory: false,
+      loadSaved: false,
+      usePersonality: false,
+      favoriteMusic: null,
+      favoriteFood: null,
+      sleepPattern: null,
+      autoLearn: false,
+      promptBeforeSave: true,
+      publicPreference: false,
+    };
   }
   return prefs;
 };
@@ -22,6 +32,12 @@ const updatePrefsSchema = z.object({
   useMemory: z.boolean(),
   loadSaved: z.boolean(),
   usePersonality: z.boolean(),
+  favoriteMusic: z.string().optional(),
+  favoriteFood: z.string().optional(),
+  sleepPattern: z.string().optional(),
+  autoLearn: z.boolean().optional(),
+  promptBeforeSave: z.boolean().optional(),
+  publicPreference: z.boolean().optional(),
 });
 
 type UpdatePrefsInput = z.infer<typeof updatePrefsSchema>;
