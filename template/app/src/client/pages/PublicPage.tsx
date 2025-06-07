@@ -18,7 +18,8 @@ export default function PublicPage() {
       setReply(res?.reply || JSON.stringify(res));
     } catch (err) {
       console.error(err);
-      setReply('Error fetching response');
+      const errorMessage = err?.message || 'An unexpected error occurred while fetching the response.';
+      setReply(errorMessage);
     } finally {
       setLoading(false);
     }
