@@ -1,5 +1,5 @@
 import { askAgent } from 'wasp/client/operations';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type ChatMessage = { role: 'user' | 'assistant'; text: string };
 
@@ -7,6 +7,19 @@ export default function AppPage() {
   const [prompt, setPrompt] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
+  const personalities = ['default', 'mentor', 'sarcastic', 'stoic', 'flirty', 'cowboy'];
+  const [selected, setSelected] = useState<string>(() => localStorage.getItem('personality') || 'default');
+
+  useEffect(() => {
+    localStorage.setItem('personality', selected);
+  }, [selected]);
+
+  const speak = (text: string) => {
+    const utter = new SpeechSynthesisUtterance(text);
+    if (selected === 'flirty') utter.pitch = 1.2;
+    if (selected === 'stoic') utter.rate = 0.9;
+    window.speechSynthesis.speak(utter);
+  };
 
   const handleSubmit = async () => {
     if (!prompt.trim()) return;
@@ -15,9 +28,10 @@ export default function AppPage() {
     setPrompt('');
     try {
       setLoading(true);
-      const res = await askAgent({ prompt: currentPrompt });
+      const res = await askAgent({ prompt: currentPrompt, profile: selected });
       const reply = res?.reply || res?.response || JSON.stringify(res);
       setMessages((prev) => [...prev, { role: 'assistant', text: reply }]);
+      speak(reply);
     } catch (err) {
       console.error(err);
       setMessages((prev) => [...prev, { role: 'assistant', text: 'Error fetching response.' }]);
@@ -29,6 +43,16 @@ export default function AppPage() {
   return (
     <div className='py-10 space-y-6'>
       <h1 className='text-4xl font-bold'>Dashboard</h1>
+      <div>
+        <label className='mr-2'>Personality:</label>
+        <select value={selected} onChange={(e) => setSelected(e.target.value)} className='border p-1 rounded'>
+          {personalities.map((p) => (
+            <option key={p} value={p}>
+              {p}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className='space-y-3'>
         {messages.map((m, idx) => (
           <div key={idx} className={m.role === 'user' ? 'text-right' : 'text-left'}>

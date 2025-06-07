@@ -210,6 +210,31 @@ action LogMemory {
   fn: import { logMemory } from "@server/ai/memory.ts",
   entities: []
 }
+
+action AskAgentPublic {
+  fn: import { askPublicAgent } from "@server/ai/publicAgent.ts",
+  entities: []
+}
+
+query getPreferences {
+  fn: import { getPreferences } from "@server/preferences.ts",
+  entities: [User, Preferences]
+}
+
+action updatePreferences {
+  fn: import { updatePreferences } from "@server/preferences.ts",
+  entities: [Preferences]
+}
+
+action togglePublicMode {
+  fn: import { togglePublicMode } from "@server/preferences.ts",
+  entities: [User]
+}
+
+query getPublicUser {
+  fn: import { getPublicUser } from "@server/preferences.ts",
+  entities: [User]
+}
 //#endregion
 
 //#region Payment
@@ -291,6 +316,12 @@ page AdminPage {
   component: import AdminPage from "@src/client/pages/AdminPage"
 }
 
+route TimelineRoute { path: "/timeline", to: TimelinePage }
+page TimelinePage {
+  authRequired: true,
+  component: import TimelinePage from "@src/client/pages/TimelinePage"
+}
+
 route AdminAnalyticsRoute { path: "/admin/analytics", to: AnalyticsDashboardPage }
 page AnalyticsDashboardPage {
   authRequired: true,
@@ -343,6 +374,11 @@ route AdminUIButtonsRoute { path: "/admin/ui/buttons", to: AdminUIButtonsPage }
 page AdminUIButtonsPage {
   authRequired: true,
   component: import AdminUI from "@src/admin/elements/ui-elements/ButtonsPage"
+}
+
+route PublicRoute { path: "/share/:username", to: PublicPage }
+page PublicPage {
+  component: import PublicPage from "@src/client/pages/PublicPage"
 }
 
 route NotFoundRoute { path: "*", to: NotFoundPage }
