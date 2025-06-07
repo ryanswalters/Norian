@@ -1,6 +1,10 @@
 import { useAuth } from 'wasp/client/auth';
 import { logMemory } from 'wasp/client/operations';
 import { useEffect, useState } from 'react';
+import { Line } from 'react-chartjs-2';
+import { Chart, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.js';
+
+Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 import { useNavigate } from 'react-router-dom';
 
 type MemoryEntry = { id: number; text: string };
@@ -37,11 +41,34 @@ export default function AdminPage() {
     }
   };
 
-  const handleClear = () => setEntries([]);
+  const handleClear = () => {
+    if (confirm('This will erase all memory entries. Continue?')) {
+      setEntries([]);
+    }
+  };
 
   return (
     <div className='py-10 space-y-6'>
       <h1 className='text-4xl font-bold'>Admin Tools</h1>
+      <div className='border rounded-md p-4'>
+        <h2 className='text-lg font-semibold mb-2'>Agent Status</h2>
+        <p>Provider: OpenAI</p>
+        <p>Personality: default</p>
+        <p>Memory: short ✅ long ✅</p>
+        <p>Last response: 120ms</p>
+      </div>
+      <div className='border rounded-md p-4'>
+        <h2 className='text-lg font-semibold mb-2'>Daily Token Usage</h2>
+        <Line
+          data={{
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [
+              { label: 'Prompt', data: [120, 90, 80, 140, 100, 110, 70], borderColor: 'rgb(99,102,241)' },
+              { label: 'Completion', data: [100, 80, 60, 120, 90, 100, 60], borderColor: 'rgb(16,185,129)' },
+            ],
+          }}
+        />
+      </div>
       <div>
         <h2 className='text-lg font-semibold mb-2'>Memory Log</h2>
         <ul className='list-disc pl-6 space-y-1'>

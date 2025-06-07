@@ -26,6 +26,7 @@ export const getEmailUserFields = defineUserSignupFields({
     return devEmails.includes(emailData.email);
   },
   isPublic: () => false,
+  advancedMode: () => false,
   displayName: () => '',
   preferencesJson: () => '{}',
 });
@@ -70,6 +71,7 @@ export const getGitHubUserFields = defineUserSignupFields({
     return devEmails.includes(emailInfo.email);
   },
   isPublic: () => false,
+  advancedMode: () => false,
   displayName: () => '',
   preferencesJson: () => '{}',
 });
@@ -119,6 +121,7 @@ export const getGoogleUserFields = defineUserSignupFields({
     return devEmails.includes(googleData.profile.email);
   },
   isPublic: () => false,
+  advancedMode: () => false,
   displayName: () => '',
   preferencesJson: () => '{}',
 });
@@ -165,6 +168,7 @@ export const getDiscordUserFields = defineUserSignupFields({
     return devEmails.includes(discordData.profile.email);
   },
   isPublic: () => false,
+  advancedMode: () => false,
   displayName: () => '',
   preferencesJson: () => '{}',
 });

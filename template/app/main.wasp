@@ -248,6 +248,11 @@ action togglePublicMode {
   entities: [User]
 }
 
+action toggleAdvancedMode {
+  fn: import { toggleAdvancedMode } from "@server/preferences.ts",
+  entities: [User]
+}
+
 query getPublicUser {
   fn: import { getPublicUser } from "@server/preferences.ts",
   entities: [User]

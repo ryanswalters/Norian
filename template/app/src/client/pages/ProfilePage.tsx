@@ -1,5 +1,6 @@
 import { useAuth } from 'wasp/client/auth';
 import { useQuery, updatePreferences, getPreferences, togglePublicMode } from 'wasp/client/operations';
+import { toggleAdvancedMode } from 'wasp/client/operations';
 import { useState, useEffect } from 'react';
 
 const dummyPrefs = {
@@ -38,6 +39,10 @@ export default function ProfilePage() {
         <label className='flex items-center gap-2'>
           <input type='checkbox' checked={user.isPublic} onChange={() => togglePublicMode()} />
           Public Profile
+        </label>
+        <label className='flex items-center gap-2'>
+          <input type='checkbox' checked={user.advancedMode} onChange={() => toggleAdvancedMode()} />
+          Advanced Mode
         </label>
       </div>
       <div className='border rounded-md p-4 space-y-2'>

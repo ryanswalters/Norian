@@ -18,6 +18,7 @@ model User {
   isPublic                  Boolean         @default(false)
   isSubscribed              Boolean         @default(false)
   demoMode                  Boolean         @default(false)
+  advancedMode             Boolean         @default(false)
   displayName               String?
   preferencesJson           String?
   preferences               Preferences?

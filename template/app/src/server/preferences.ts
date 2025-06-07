@@ -69,6 +69,17 @@ export const togglePublicMode: TogglePublicMode<void, boolean> = async (_args, c
   return updated.isPublic;
 };
 
+export const toggleAdvancedMode = async (_args: void, context: any) => {
+  if (!context.user) {
+    throw new HttpError(401);
+  }
+  const updated = await context.entities.User.update({
+    where: { id: context.user.id },
+    data: { advancedMode: !context.user.advancedMode },
+  });
+  return updated.advancedMode;
+};
+
 export const getPublicUser: GetPublicUser<{ username: string }, any> = async (args, _context) => {
   const user = await prisma.user.findFirst({
     where: { username: args.username, isPublic: true },
