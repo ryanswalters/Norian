@@ -7,7 +7,9 @@
 ## Steps
 
 ```bash
-npm install -g wasp
+# Install Wasp CLI
+curl -sSL https://get.wasp.sh/installer.sh | sh
+wasp new -t saas
 cd template/app
 npm install
 cp .env.server.example .env.server

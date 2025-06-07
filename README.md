@@ -32,6 +32,13 @@ norian/
 ## 🚀 Getting Started
 
 ```bash
+# Install the Wasp CLI
+curl -sSL https://get.wasp.sh/installer.sh | sh
+
+# (Optional) create a new SaaS project
+wasp new -t saas
+
+# Clone this repo
 git clone https://github.com/ryanswalters/Norian.git
 cd Norian
 
