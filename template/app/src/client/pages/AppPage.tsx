@@ -1,5 +1,6 @@
 import { askAgent } from 'wasp/client/operations';
 import { useState, useEffect } from 'react';
+import VoiceRecorder from '../components/VoiceRecorder';
 
 type ChatMessage = { role: 'user' | 'assistant'; text: string };
 
@@ -29,6 +30,22 @@ export default function AppPage() {
     try {
       setLoading(true);
       const res = await askAgent({ prompt: currentPrompt, profile: selected });
+      const reply = res?.reply || res?.response || JSON.stringify(res);
+      setMessages((prev) => [...prev, { role: 'assistant', text: reply }]);
+      speak(reply);
+    } catch (err) {
+      console.error(err);
+      setMessages((prev) => [...prev, { role: 'assistant', text: 'Error fetching response.' }]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVoice = async (text: string) => {
+    setMessages((prev) => [...prev, { role: 'user', text }]);
+    try {
+      setLoading(true);
+      const res = await askAgent({ prompt: text, profile: selected });
       const reply = res?.reply || res?.response || JSON.stringify(res);
       setMessages((prev) => [...prev, { role: 'assistant', text: reply }]);
       speak(reply);
@@ -76,6 +93,7 @@ export default function AppPage() {
         >
           Send
         </button>
+        <VoiceRecorder onTranscribed={handleVoice} disabled={loading} />
       </div>
     </div>
   );
