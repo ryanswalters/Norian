@@ -56,7 +56,12 @@ npm install
 wasp start
 ```
 
-For convenience, run `scripts/setup-dev.sh` to install dependencies and set up the database. The script checks that Node.js 18+ is installed and that the current directory is writable, then installs packages. It will abort with a helpful message if packages cannot be installed (for example when network access is disabled).
+For convenience, run `scripts/setup-dev.sh` to install dependencies and set up the database. The script automatically verifies that **Node.js 18+** is installed and that the current directory is writable before attempting to install packages. It fails early with a clear error message if the requirements aren't met or if packages can't be fetched (for example when network access is disabled).
+
+If the setup script stops:
+1. Check that your Node.js version is 18 or higher (`node -v`).
+2. Ensure the project directory is writable by the current user.
+3. Confirm the environment has internet access or a local npm cache.
 
 `scripts/dev_bootstrap.sh` is still available to automate a full start of the development server after setup.
 
@@ -112,6 +117,9 @@ In restricted environments (e.g., air-gapped CI or devcontainers without
 network), run `scripts/setup-dev.sh` on a machine with internet first, or
 manually install the packages listed in `package.json`. After dependencies are
 installed you can run `npm test` and `npm run coverage` locally.
+Setup may also fail if your Node.js version is below 18 or if you lack write
+permissions in the project directory. Check these first if the script exits
+early.
 
 ## 🛡 License
 
