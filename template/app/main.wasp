@@ -175,6 +175,12 @@ page PersonalitiesPage {
   component: import PersonalitiesPage from "@src/client/pages/PersonalitiesPage"
 }
 
+route AgentsRoute { path: "/agents", to: AgentsPage }
+page AgentsPage {
+  authRequired: true,
+  component: import AgentsPage from "@src/client/pages/AgentsPage"
+}
+
 query getPaginatedUsers {
   fn: import { getPaginatedUsers } from "@src/user/operations",
   entities: [User]
@@ -278,6 +284,21 @@ query getPublicUser {
 query qdrantHealth {
   fn: import { qdrantHealth } from "@server/qdrant.ts",
   entities: []
+}
+
+query searchVector {
+  fn: import { searchVector } from "@server/qdrant.ts",
+  entities: []
+}
+
+action createAgent {
+  fn: import { createAgent } from "@server/api/agents.ts",
+  entities: [Agent]
+}
+
+query listAgents {
+  fn: import { listAgents } from "@server/api/agents.ts",
+  entities: [Agent]
 }
 
 query diagnostics {

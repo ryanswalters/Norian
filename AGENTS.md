@@ -6,7 +6,7 @@ Agents in Norian are modular AI personalities powered by Axyn.ai. Each agent con
 An agent represents a persona with its own tone and memory behaviour. It can limit which memory tiers are read or written and choose a voice preset.
 
 ## File Location
-All agents are listed in `src/agents/registry.ts` as an array of objects:
+All agents are listed in `template/app/src/agents/registry.ts` as an array of objects:
 ```ts
 export const agents = [
   {
@@ -20,7 +20,7 @@ export const agents = [
 ```
 
 ## Adding a New Agent
-1. Open `src/agents/registry.ts`.
+1. Open `template/app/src/agents/registry.ts`.
 2. Append a new object with a unique `id` and `name`.
 3. Optionally set `personality`, `memoryAccess` and `voice`.
 4. Update any dropdowns or UI selectors that list agents.

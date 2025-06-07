@@ -1,4 +1,4 @@
-import { askAgent, summarizeConversation } from 'wasp/client/operations';
+import { askAgent, summarizeConversation, listAgents } from 'wasp/client/operations';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import VoiceRecorder from '../components/VoiceRecorder';
@@ -8,6 +8,8 @@ type ChatMessage = { role: 'user' | 'assistant'; text: string };
 export default function AppPage() {
   const [prompt, setPrompt] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const { data: agentList } = useQuery(listAgents);
+  const [agentId, setAgentId] = useState<string>(() => localStorage.getItem('agentId') || '');
   const [loading, setLoading] = useState(false);
   const [summary, setSummary] = useState<string | null>(null);
   const [tokenUsage, setTokenUsage] = useState(0);
@@ -19,6 +21,10 @@ export default function AppPage() {
   useEffect(() => {
     localStorage.setItem('personality', selected);
   }, [selected]);
+
+  useEffect(() => {
+    if (agentId) localStorage.setItem('agentId', agentId);
+  }, [agentId]);
 
   const speak = (text: string) => {
     const utter = new SpeechSynthesisUtterance(text);
@@ -43,7 +49,7 @@ export default function AppPage() {
     setPrompt('');
     try {
       setLoading(true);
-      const res = await askAgent({ prompt: currentPrompt, profile: selected });
+      const res = await askAgent({ prompt: currentPrompt, profile: selected, agentId });
       const reply = res?.reply || res?.response || JSON.stringify(res);
       setMessages((prev) => [...prev, { role: 'assistant', text: reply }]);
       speak(reply);
@@ -62,7 +68,7 @@ export default function AppPage() {
     setMessages((prev) => [...prev, { role: 'user', text }]);
     try {
       setLoading(true);
-      const res = await askAgent({ prompt: text, profile: selected });
+      const res = await askAgent({ prompt: text, profile: selected, agentId });
       const reply = res?.reply || res?.response || JSON.stringify(res);
       setMessages((prev) => [...prev, { role: 'assistant', text: reply }]);
       speak(reply);
@@ -92,6 +98,15 @@ export default function AppPage() {
     <div className='py-10 space-y-6'>
       <h1 className='text-4xl font-bold'>Dashboard</h1>
       <div className='space-y-2'>
+        {agentList && (
+          <div>
+            <label className='mr-2'>Agent:</label>
+            <select value={agentId} onChange={e=>setAgentId(e.target.value)} className='border p-1 rounded'>
+              <option value=''>default</option>
+              {agentList.map((a:any)=>(<option key={a.id} value={a.id}>{a.name}</option>))}
+            </select>
+          </div>
+        )}
         <div>
           <label className='mr-2'>Personality:</label>
           <select value={selected} onChange={(e) => setSelected(e.target.value)} className='border p-1 rounded'>

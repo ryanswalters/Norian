@@ -21,6 +21,11 @@ export async function seedMockUsers(prismaClient: PrismaClient) {
       })
     )
   );
+  await Promise.all(
+    created.map((u) =>
+      prismaClient.agent.create({ data: { userId: u.id, name: 'Mentor', description: 'Default mentor' } })
+    )
+  );
 }
 
 function generateMockUsersData(numOfUsers: number): MockUserData[] {

@@ -9,7 +9,7 @@ process.env.AXYN_API_URL = 'http://test-api';
 describe('api helpers', () => {
   it('askAgent forwards prompt', async () => {
     mocked.post = vi.fn().mockResolvedValue({ data: { reply: 'hi' } })
-    const res = await askAgent({ prompt: 'hello', profile: 'mentor' }, { user: { token: 't' } })
+    const res = await askAgent({ prompt: 'hello', profile: 'mentor', agentId: 'a1' }, { user: { token: 't' } })
     expect(res.reply).toBe('hi')
     expect(mocked.post).toHaveBeenCalled()
   })
