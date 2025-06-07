@@ -5,10 +5,14 @@
     "test": "npm --prefix template/app test",
     "coverage": "npm --prefix template/app run coverage",
     "test:coverage": "npm --prefix template/app run coverage",
-    "coverage:open": "xdg-open template/app/coverage/index.html || open template/app/coverage/index.html"
+    "coverage:open": "xdg-open template/app/coverage/index.html || open template/app/coverage/index.html",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui"
   },
   "devDependencies": {
-    "vitest": "^3.2.2",
-    "@vitest/coverage-v8": "3.2.2"
+    "@playwright/test": "^1.52.0",
+    "@vitest/coverage-v8": "3.2.2",
+    "playwright": "^1.42.1",
+    "vitest": "^3.2.2"
   }
 }

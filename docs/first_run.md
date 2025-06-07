@@ -36,3 +36,5 @@ npm --prefix template/app install -D @vitest/coverage-v8
 ## Known Issues
 
 Tests and coverage need internet access to install dev dependencies. If running in an offline or restricted environment, run `scripts/setup-dev.sh` on a machine with internet first, or manually install the packages specified in `package.json`.
+End-to-end tests use Playwright. With the dev server running, execute `npm run e2e`.
+Visit `/preview` in the app to try the live agent and memory panel.

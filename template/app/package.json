@@ -2,8 +2,8 @@
   "name": "opensaas",
   "type": "module",
   "scripts": {
-    "test": "vitest run",
-    "coverage": "vitest run --coverage",
+    "test": "vitest run --config vitest.config.ts",
+    "coverage": "vitest run --coverage --config vitest.config.ts",
     "coverage:open": "xdg-open coverage/index.html || open coverage/index.html"
   },
   "dependencies": {

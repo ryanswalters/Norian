@@ -78,6 +78,7 @@ Note: Wasp will auto-link the backend and generate Prisma models on build.
 | SynapseForge     | Plugin architecture for tools + extensions         |
 | CortexForge      | Main API router (FastAPI backend)                  |
 | Sentinel         | Pattern monitor and proactive triggers             |
+| Live Preview     | Real-time agent and memory test page at `/preview` |
 | PreferenceForge  | Behavioral learning (food, media, habits)          |
 | Tier System      | Limits features by user level or license           |
 
@@ -117,6 +118,8 @@ In restricted environments (e.g., air-gapped CI or devcontainers without
 network), run `scripts/setup-dev.sh` on a machine with internet first, or
 manually install the packages listed in `package.json`. After dependencies are
 installed you can run `npm test` and `npm run coverage` locally.
+End-to-end tests are implemented with Playwright. Start the dev server and run
+`npm run e2e` to verify agent and memory workflows.
 Setup may also fail if your Node.js version is below 18 or if you lack write
 permissions in the project directory. Check these first if the script exits
 early.

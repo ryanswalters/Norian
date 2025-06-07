@@ -111,6 +111,12 @@ page LabsPage {
   component: import LabsPage from "@src/client/pages/LabsPage"
 }
 
+route PreviewRoute { path: "/preview", to: PreviewPage }
+page PreviewPage {
+  authRequired: true,
+  component: import PreviewPage from "@src/client/pages/PreviewPage"
+}
+
 //#region Auth Pages
 route LoginRoute { path: "/login", to: LoginPage }
 page LoginPage {

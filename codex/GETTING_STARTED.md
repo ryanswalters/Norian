@@ -22,3 +22,10 @@ wasp start
 ```
 
 This will start the development server at http://localhost:3000. If dependency installation fails, make sure you have internet access or manually install the packages listed in `package.json`.
+
+To run end-to-end tests after the server is running, execute:
+
+```bash
+npm run e2e
+```
+Open `/preview` in the browser to access the live preview panel that shows agent replies and recent memory entries.
