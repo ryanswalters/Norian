@@ -6,6 +6,15 @@
 
 **Norian** is the front-end layer of the Axyn.ai system, designed as a modular interface for managing agents, memory, personalities, and tools.
 
+
+## Quickstart
+
+```bash
+curl -sSL https://get.wasp.sh/installer.sh | sh
+wasp new -t saas
+```
+
+Then clone this repo and run `wasp start` inside the project directory.
 ---
 
 ## 🔧 Stack Overview
