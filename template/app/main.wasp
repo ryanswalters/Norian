@@ -96,9 +96,19 @@ app OpenSaaS {
   },
 }
 
-route LandingPageRoute { path: "/", to: LandingPage }
-page LandingPage {
-  component: import LandingPage from "@src/landing-page/LandingPage"
+route MainRoute { path: "/", to: MainPage }
+page MainPage {
+  component: import MainPage from "@src/client/pages/MainPage"
+}
+
+route AppRoute { path: "/app", to: AppPage }
+page AppPage {
+  component: import AppPage from "@src/client/pages/AppPage"
+}
+
+route LabsRoute { path: "/labs", to: LabsPage }
+page LabsPage {
+  component: import LabsPage from "@src/client/pages/LabsPage"
 }
 
 //#region Auth Pages
@@ -184,6 +194,18 @@ query getAllTasksByUser {
 }
 //#endregion
 
+//#region Axyn AI
+action AskAgent {
+  fn: import { askAgent } from "@server/ai/agent.ts",
+  entities: []
+}
+
+action LogMemory {
+  fn: import { logMemory } from "@server/ai/memory.ts",
+  entities: []
+}
+//#endregion
+
 //#region Payment
 route PricingPageRoute { path: "/pricing", to: PricingPage }
 page PricingPage {
@@ -257,7 +279,13 @@ job dailyStatsJob {
 //#endregion
 
 //#region Admin Dashboard
-route AdminRoute { path: "/admin", to: AnalyticsDashboardPage }
+route AdminRoute { path: "/admin", to: AdminPage }
+page AdminPage {
+  authRequired: true,
+  component: import AdminPage from "@src/client/pages/AdminPage"
+}
+
+route AdminAnalyticsRoute { path: "/admin/analytics", to: AnalyticsDashboardPage }
 page AnalyticsDashboardPage {
   authRequired: true,
   component: import AnalyticsDashboardPage from "@src/admin/dashboards/analytics/AnalyticsDashboardPage"
