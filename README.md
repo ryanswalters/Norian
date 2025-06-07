@@ -1,77 +1,81 @@
-## Welcome to your new SaaS App! 🎉
-<a href="https://www.producthunt.com/posts/open-saas?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-open&#0045;saas" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=436467&theme=light" alt="Open&#0032;SaaS - Open&#0045;source&#0032;&#0038;&#0032;100&#0037;&#0032;free&#0032;React&#0032;&#0038;&#0032;Node&#0046;js&#0032;SaaS&#0032;starter&#0033; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+# Norian
 
-https://github.com/wasp-lang/open-saas/assets/70215737/5ff289b1-12b9-4b46-aa90-a6a3122de93e
+Norian is the official frontend for the Axyn.ai modular AI system. Built with [Wasp](https://wasp-lang.dev), it integrates customizable AI agents, user memory and personality systems in a sleek, extensible UI.
 
-You've decided to build a SaaS app with the Open SaaS template. Great choice! 
-
-This template is:
-
-1. fully open-source
-2. completely free to use and distribute
-3. comes with a ton of features out of the box!
-4. focused on free, open-source services, where possible
-
-🧑‍💻 Check it out in action here: [OpenSaaS.sh](https://opensaas.sh)  
-📚 Check out the Docs here: [Open SaaS Docs](https://docs.opensaas.sh)
-
-## What's inside?
-
-The template itself is built on top of some very powerful tools and frameworks, including:
-
-- 🐝 [Wasp](https://wasp.sh) - a full-stack React, NodeJS, Prisma framework with superpowers
-- 🚀 [Astro](https://starlight.astro.build/) - Astro's lightweight "Starlight" template for documentation and blog
-- 💸 [Stripe](https://stripe.com) or [Lemon Squeezy](https://lemonsqueezy.com/) - for products and payments
-- 📈 [Plausible](https://plausible.io) or [Google](https://analytics.google.com/) Analytics
-- 🤖 [OpenAI](https://openai.com) - OpenAI API w/ function calling example
-- 📦 [AWS S3](https://aws.amazon.com/s3/) - for file uploads
-- 📧 [SendGrid](https://sendgrid.com), [MailGun](https://mailgun.com), or SMTP - for email sending
-- 💅 [TailwindCSS](https://tailwindcss.com) - for styling
-- 🧑‍💼 [TailAdmin](https://tailadmin.com/) - admin dashboard & components for TailwindCSS
-- 🧪 [Playwright](https://playwright.dev) - end-to-end tests with Playwright
-
-Because we're using Wasp as the full-stack framework, we can leverage a lot of its features to build our SaaS in record time, including:
-
-- 🔐 [Full-stack Authentication](https://wasp.sh/docs/auth/overview) - Email verified + social Auth in a few lines of code.
-- ⛑ [End-to-end Type Safety](https://wasp.sh/docs/data-model/operations/overview) - Type your backend functions and get inferred types on the front-end automatically, without the need to install or configure any third-party libraries. Oh, and type-safe Links, too!
-- 🤖 [Jobs](https://wasp.sh/docs/advanced/jobs) - Run cron jobs in the background or set up queues simply by defining a function in the config file.
-- 🚀 [One-command Deploy](https://wasp.sh/docs/advanced/deployment/overview) - Easily deploy via the CLI to [Fly.io](https://fly.io), or to other providers like [Railway](https://railway.app) and [Netlify](https://netlify.com).
-
-You also get access to Wasp's diverse, helpful community if you get stuck or need help.
-- 🤝 [Wasp Discord](https://discord.gg/aCamt5wCpS)
+## Tech Stack
+- **Wasp** – React + Node.js + Prisma framework
+- **React** – frontend
+- **Prisma + SQLite** – local database (swap with Postgres for prod)
+- **Tailwind** – styling
+- **FastAPI** – remote AI backend (`AXYN_API_URL`)
 
 ## Getting Started
 
-### Simple Instructions
-
-First, to install the latest version of [Wasp](https://wasp.sh/) on macOS, Linux, or Windows with WSL, run the following command:
+Install Wasp (required for running the app or creating a new one):
 ```bash
 curl -sSL https://get.wasp.sh/installer.sh | sh
 ```
 
-Then, create a new SaaS app with the following command:
+To start from this repo:
+```bash
+git clone https://github.com/ryanswalters/Norian.git
+cd Norian
+wasp start
+```
 
+Or generate a fresh Open SaaS project of your own:
 ```bash
 wasp new -t saas
 ```
 
-This will create a **clean copy of the Open SaaS template** into a new directory, and you can start building your SaaS app right away!
+Create `.env.server` and set:
+```
+AXYN_API_URL=http://localhost:8000
+```
 
-### Detailed Instructions
+Visit `http://localhost:3000` after the dev server starts.
 
-For everything you need to know about getting started and using this template, check out the [Open SaaS Docs](https://docs.opensaas.sh).
+## Core Pages
+Route | Purpose
+----- | -------
+`/` | Landing page
+`/app` | AI chat UI
+`/admin` | Memory viewer + dev tools (auth gated)
+`/labs` | Experimental features
 
-We've documented everything in great detail, including installation instructions, pulling updates to the template, guides for integrating services, SEO, deployment, and more. 🚀
+## AI Agents
+Agents define personality, memory access and optional voice presets. They are stored in `src/agents/registry.ts` and can be selected in the UI. Each agent modifies prompt style, memory behaviour and voice output.
 
-## Getting Help & Providing Feedback
+## Project Structure
+```
+Norian/
+├── main.wasp               # Wasp DSL config
+├── src/
+│   ├── pages/              # React pages
+│   ├── agents/             # Agent definitions
+│   ├── actions/            # Calls to Axyn APIs
+│   ├── components/         # UI components
+│   └── hooks/              # Custom hooks
+└── prisma/
+    └── schema.prisma       # Database models
+```
 
-There are two ways to get help or provide feedback (and we try to always respond quickly!):
-1. [Open an issue](https://github.com/wasp-lang/open-saas/issues)
-2. [Wasp Discord](https://discord.gg/aCamt5wCpS) -- please direct questions to the #🙋questions forum channel
+## Development
+Prerequisites: Node.js 18+, Wasp CLI.
+Run `wasp db migrate-dev` then `wasp start` to launch.
 
-## Contributing
+## Features Checklist
+- AI prompt → reply via FastAPI backend
+- Memory viewer
+- Agent selection
+- Voice output (planned)
+- Tiered memory controls (in progress)
+- Usage tracking (in progress)
 
-Note that we've tried to get as many of the core features of a SaaS app into this template as possible, but there still might be some missing features or functionality.
+## Coming Soon
+- AI memory timeline (journal)
+- Agent store for downloading personas
+- Public mode + shareable bots
+- API rate limiting + tiers
 
-We could always use some help tying up loose ends: contributions are welcome! Check out [CONTRIBUTING.md](/CONTRIBUTING.md) for more details.
-
+Contributions are welcome! Fork the repo, create a feature branch and open a PR.
