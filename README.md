@@ -41,6 +41,7 @@ norian/
 ```bash
 # Install the Wasp CLI (needed for dev server and E2E tests)
 curl -sSL https://get.wasp.sh/installer.sh | sh
+# or: npm install -g @wasp/cli
 
 # (Optional) create a new SaaS project
 wasp new -t saas

@@ -10,9 +10,9 @@ if (!which.sync('wasp', { nothrow: true })) {
 
 const PORT = process.env.PORT || 3000;
 
-function checkServer() {
+function checkEndpoint(path) {
   return new Promise(resolve => {
-    const req = http.get({ hostname: 'localhost', port: PORT, path: '/' }, () => {
+    const req = http.get({ hostname: 'localhost', port: PORT, path }, () => {
       req.destroy();
       resolve(true);
     });
@@ -20,7 +20,15 @@ function checkServer() {
   });
 }
 
-async function waitForServer(maxAttempts = 120) {
+async function checkServer() {
+  if (await checkEndpoint('/')) {
+    // also try diagnostics endpoint for more reliable readiness
+    if (await checkEndpoint('/api/diagnostics')) return true;
+  }
+  return false;
+}
+
+async function waitForServer(maxAttempts = 180) {
   for (let i = 0; i < maxAttempts; i++) {
     if (await checkServer()) return true;
     await new Promise(r => setTimeout(r, 1000));
@@ -33,6 +41,7 @@ async function waitForServer(maxAttempts = 120) {
   let backendReady = false;
   if (!(await checkServer())) {
     console.log('Backend not detected, starting with "wasp start"...');
+    console.log('Writing backend output to e2e-backend.log');
     const logStream = fs.createWriteStream('e2e-backend.log');
     serverProc = spawn('wasp', ['start'], { cwd: 'template/app' });
     serverProc.stdout.pipe(logStream);

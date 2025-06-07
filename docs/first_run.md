@@ -3,6 +3,7 @@
 1. Install the Wasp CLI:
    ```bash
    curl -sSL https://get.wasp.sh/installer.sh | sh
+   # or: npm install -g @wasp/cli
    ```
 2. Clone this repository and run the setup script:
    ```bash

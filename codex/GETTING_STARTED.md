@@ -9,6 +9,7 @@
 ```bash
 # Install Wasp CLI
 curl -sSL https://get.wasp.sh/installer.sh | sh
+# or: npm install -g @wasp/cli
 
 # Clone the repo
 git clone https://github.com/ryanswalters/Norian.git
