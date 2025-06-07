@@ -1,5 +1,9 @@
 # Norian
 
+![Tests](https://img.shields.io/badge/tests-unknown-lightgrey)
+![Coverage](https://img.shields.io/badge/coverage-unknown-lightgrey)
+![Build](https://img.shields.io/badge/build-passing-brightgreen)
+
 **Norian** is the front-end layer of the Axyn.ai system, designed as a modular interface for managing agents, memory, personalities, and tools.
 
 ---

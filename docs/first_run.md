@@ -12,3 +12,17 @@
    ```
 
 The script installs dependencies, runs database migrations, seeds demo data, creates `.env.server` if missing and starts the dev server at `http://localhost:3000`.
+
+## Troubleshooting
+
+If `npm run coverage` fails with `vitest: not found`, ensure dev dependencies are installed:
+
+```bash
+npm --prefix template/app install
+```
+
+If the `@vitest/coverage-v8` package is missing, add it with:
+
+```bash
+npm --prefix template/app install -D @vitest/coverage-v8
+```

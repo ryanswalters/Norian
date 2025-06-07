@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "test": "npm --prefix template/app test",
-    "coverage": "npm --prefix template/app run coverage"
+    "coverage": "npm --prefix template/app run coverage",
+    "test:coverage": "npm --prefix template/app run coverage",
+    "coverage:open": "xdg-open template/app/coverage/index.html || open template/app/coverage/index.html"
   }
 }
