@@ -1,0 +1,8 @@
+vector_backend: qdrant
+qdrant:
+  host: "localhost"
+  port: 6333
+  collection: "axyn_memory"
+embedding:
+  engine: "local"
+  local_model_path: "./models/all-MiniLM-L6-v2"
