@@ -187,6 +187,11 @@ page AgentMemoryPage {
   component: import AgentMemoryPage from "@src/client/pages/AgentMemoryPage"
 }
 
+route StoreRoute { path: "/store", to: StorePage }
+page StorePage {
+  component: import StorePage from "@src/client/pages/StorePage"
+}
+
 query getPaginatedUsers {
   fn: import { getPaginatedUsers } from "@src/user/operations",
   entities: [User]
@@ -332,6 +337,11 @@ action createAgent {
   entities: [Agent]
 }
 
+action updateAgentRetention {
+  fn: import { updateAgentRetention } from "@server/api/agents.ts",
+  entities: [Agent]
+}
+
 query listAgents {
   fn: import { listAgents } from "@server/api/agents.ts",
   entities: [Agent]
@@ -340,6 +350,11 @@ query listAgents {
 query diagnostics {
   fn: import { diagnostics } from "@server/diagnostics.ts",
   entities: []
+}
+
+query codexDebug {
+  fn: import { codexDebug } from "@server/debugCodex.ts",
+  entities: [Agent]
 }
 
 query exportConfig {
@@ -490,6 +505,16 @@ page AdminUIButtonsPage {
 route PublicRoute { path: "/share/:username", to: PublicPage }
 page PublicPage {
   component: import PublicPage from "@src/client/pages/PublicPage"
+}
+
+route PublicAgentPageRoute { path: "/u/:username/agent/:id", to: PublicAgentPage }
+page PublicAgentPage {
+  component: import PublicAgentPage from "@src/client/pages/PublicAgentPage"
+}
+
+route CodexDebugRoute { path: "/debug/codex.json", to: CodexDebugPage }
+page CodexDebugPage {
+  component: import CodexDebugPage from "@src/client/pages/CodexDebugPage"
 }
 
 route NotFoundRoute { path: "*", to: NotFoundPage }

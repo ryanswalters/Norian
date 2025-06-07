@@ -7,6 +7,7 @@ import { useMemo, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { routes } from 'wasp/client/router';
 import { Outlet, useLocation } from 'react-router-dom';
+import ErrorBoundary from './components/ErrorBoundary';
 import { useAuth } from 'wasp/client/auth';
 import { useIsLandingPage } from './hooks/useIsLandingPage';
 
@@ -40,18 +41,20 @@ export default function App() {
 
   return (
     <>
-      <div className='min-h-screen dark:text-white dark:bg-boxdark-2'>
-        {isAdminDashboard ? (
-          <Outlet />
-        ) : (
-          <>
-            {shouldDisplayAppNavBar && <NavBar navigationItems={navigationItems} />}
-            <div className='mx-auto max-w-7xl sm:px-6 lg:px-8'>
-              <Outlet />
-            </div>
-          </>
-        )}
-      </div>
+      <ErrorBoundary>
+        <div className='min-h-screen dark:text-white dark:bg-boxdark-2'>
+          {isAdminDashboard ? (
+            <Outlet />
+          ) : (
+            <>
+              {shouldDisplayAppNavBar && <NavBar navigationItems={navigationItems} />}
+              <div className='mx-auto max-w-7xl sm:px-6 lg:px-8'>
+                <Outlet />
+              </div>
+            </>
+          )}
+        </div>
+      </ErrorBoundary>
       <CookieConsentBanner />
       <Toaster position='top-right' />
     </>

@@ -18,3 +18,13 @@ export const saveMemorySummary = async (
     data: { memorySummary: _args.summary }
   })
 }
+
+export const updateAgentRetention = async (
+  _args: { agentId: string; shortTermDays: number; midTermDays: number; longTermDays: number },
+  context: any
+) => {
+  return prisma.agent.update({
+    where: { id: _args.agentId, userId: context.user.id },
+    data: { shortTermDays: _args.shortTermDays, midTermDays: _args.midTermDays, longTermDays: _args.longTermDays }
+  })
+}

@@ -18,6 +18,8 @@ Repo is divided into two main parts: [template](/template) dir and [opensaas-sh]
 1. Make sure you understand the basics of how open-saas works (check out [docs](https://docs.opensaas.sh)).
 2. Check out this repo (`main` branch) and make sure you are able to get the app in [template/app/](/template/app) running (to set it up, follow the same steps as for running a new open-saas app, as explained in the open-saas docs).
 3. Create a new git branch for your work (aka feature branch) and do your changes on it.
+   Use `feature/*` or `bugfix/*` prefixes.
+   Run `npm test` and `npm run coverage` before submitting a PR.
 4. Update e2e tests in [template/e2e-tests](/template/e2e-tests/) if needed and make sure they are passing.
 5. Update docs in [opensaas-sh/blog/src/content/docs](/opensaas-sh/blog/src/content/docs/) if needed. Check [opensaas-sh/README.md](/opensaas-sh/README.md) for more details.
 6. Update demo app in [opensaas-sh/app_diff](/opensaas-sh/app_diff) if needed. Check [opensaas-sh/README.md](/opensaas-sh/README.md) for more details.

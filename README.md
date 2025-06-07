@@ -27,6 +27,8 @@ norian/
 └── README.md       # This file
 ```
 
+![Architecture diagram](docs/architecture.svg)
+
 ---
 
 ## 🚀 Getting Started
@@ -49,6 +51,8 @@ npm install
 wasp start
 ```
 
+For convenience, run `scripts/dev_bootstrap.sh` to install deps, migrate, seed, and start the server.
+
 Note: Wasp will auto-link the backend and generate Prisma models on build.
 
 ## 📦 Features
@@ -62,6 +66,12 @@ Note: Wasp will auto-link the backend and generate Prisma models on build.
 | Sentinel         | Pattern monitor and proactive triggers             |
 | PreferenceForge  | Behavioral learning (food, media, habits)          |
 | Tier System      | Limits features by user level or license           |
+
+### Memory Tiers
+
+Short → Mid → Long → Superlong
+
+Each tier has configurable TTL. See Agents page to adjust.
 
 ## 📄 Docs Status
 
