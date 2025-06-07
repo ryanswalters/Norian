@@ -13,7 +13,14 @@ type MockUserData = Omit<User, 'id'>;
 export async function seedMockUsers(prismaClient: PrismaClient) {
   const users = generateMockUsersData(50);
   users.push(generateDevUserData());
-  await Promise.all(users.map((data) => prismaClient.user.create({ data })));
+  const created = await Promise.all(users.map((data) => prismaClient.user.create({ data })));
+  await Promise.all(
+    created.map((u) =>
+      prismaClient.preferences.create({
+        data: { userId: u.id, useMemory: false, loadSaved: false, usePersonality: false },
+      })
+    )
+  );
 }
 
 function generateMockUsersData(numOfUsers: number): MockUserData[] {
@@ -27,6 +34,7 @@ function generateDevUserData(): MockUserData {
     createdAt: new Date(),
     isAdmin: false,
     isDev: true,
+    isPublic: true,
     credits: 3,
     subscriptionStatus: null,
     lemonSqueezyCustomerPortalUrl: null,
@@ -56,6 +64,7 @@ function generateMockUserData(): MockUserData {
     createdAt,
     isAdmin: false,
     isDev: false,
+    isPublic: false,
     displayName: `${firstName} ${lastName}`,
     preferencesJson: '{}',
     credits,
