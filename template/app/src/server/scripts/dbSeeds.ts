@@ -12,7 +12,8 @@ type MockUserData = Omit<User, 'id'>;
  */
 export async function seedMockUsers(prismaClient: PrismaClient) {
   const users = generateMockUsersData(50);
-  users.push(generateDevUserData());
+  const devUser = ensureUniqueDevUser(generateDevUserData(), users);
+  users.push(devUser);
   const created = await Promise.all(users.map((data) => prismaClient.user.create({ data })));
   await Promise.all(
     created.map((u) =>
