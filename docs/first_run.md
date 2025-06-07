@@ -33,8 +33,10 @@ If the `@vitest/coverage-v8` package is missing, add it with:
 npm --prefix template/app install -D @vitest/coverage-v8
 ```
 
+If `npm run e2e` reports that it cannot connect, make sure `wasp start` is running or let the script start it automatically. Then refresh `/preview` to check the backend status.
+
 ## Known Issues
 
 Tests and coverage need internet access to install dev dependencies. If running in an offline or restricted environment, run `scripts/setup-dev.sh` on a machine with internet first, or manually install the packages specified in `package.json`.
-End-to-end tests use Playwright. With the dev server running, execute `npm run e2e`.
-Visit `/preview` in the app to try the live agent and memory panel.
+End-to-end tests use Playwright. `npm run e2e` will automatically start the backend if it isn't already running. You can also run `wasp start` in another terminal before executing the tests.
+Visit `/preview` in the app to confirm the backend is live and try the agent and memory panel.

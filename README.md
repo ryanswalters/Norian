@@ -58,6 +58,8 @@ wasp start
 
 For convenience, run `scripts/setup-dev.sh` to install dependencies and set up the database. The script automatically verifies that **Node.js 18+** is installed and that the current directory is writable before attempting to install packages. It fails early with a clear error message if the requirements aren't met or if packages can't be fetched (for example when network access is disabled).
 
+Once the server is running, open [http://localhost:3000/preview](http://localhost:3000/preview) to confirm that the backend is live and test agent replies in real time.
+
 If the setup script stops:
 1. Check that your Node.js version is 18 or higher (`node -v`).
 2. Ensure the project directory is writable by the current user.
@@ -118,11 +120,22 @@ In restricted environments (e.g., air-gapped CI or devcontainers without
 network), run `scripts/setup-dev.sh` on a machine with internet first, or
 manually install the packages listed in `package.json`. After dependencies are
 installed you can run `npm test` and `npm run coverage` locally.
-End-to-end tests are implemented with Playwright. Start the dev server and run
-`npm run e2e` to verify agent and memory workflows.
+End-to-end tests are implemented with Playwright. `npm run e2e` will start the
+backend automatically if needed, but you can also run `wasp start` in another
+terminal and then execute the command. If the tests fail immediately, ensure the
+backend is running on `localhost:3000`.
+If you are unsure whether the backend is reachable, open `/preview` in the
+browser. It displays the current backend status and lets you try a quick
+prompt.
 Setup may also fail if your Node.js version is below 18 or if you lack write
 permissions in the project directory. Check these first if the script exits
 early.
+
+### Troubleshooting E2E
+
+If `npm run e2e` exits immediately or fails to connect, confirm that `wasp start`
+is able to run and that port `3000` is free. Running `/preview` in the browser
+should display a green "live" indicator when the backend is reachable.
 
 ## 🛡 License
 
