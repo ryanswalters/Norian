@@ -1,81 +1,92 @@
 # Norian
 
-Norian is the official frontend for the Axyn.ai modular AI system. Built with [Wasp](https://wasp-lang.dev), it integrates customizable AI agents, user memory and personality systems in a sleek, extensible UI.
+**Norian** is the front-end layer of the Axyn.ai system, designed as a modular interface for managing agents, memory, personalities, and tools.
 
-## Tech Stack
-- **Wasp** – React + Node.js + Prisma framework
-- **React** – frontend
-- **Prisma + SQLite** – local database (swap with Postgres for prod)
-- **Tailwind** – styling
-- **FastAPI** – remote AI backend (`AXYN_API_URL`)
+---
 
-## Getting Started
+## 🔧 Stack Overview
 
-Install Wasp (required for running the app or creating a new one):
-```bash
-curl -sSL https://get.wasp.sh/installer.sh | sh
+- **Wasp Framework** (React + Node.js + Prisma)
+- **TypeScript** frontend with TailwindCSS
+- **FastAPI** backend router (CortexForge, MindForge, etc.)
+- **MariaDB** for structured data
+- **Qdrant** for vector memory search
+
+---
+
+## 📁 Project Structure
+
+```
+norian/
+├── src/
+│   ├── components/ # Shared UI elements
+│   ├── pages/      # Route-based views
+│   └── styles/     # Global Tailwind setup
+├── main.wasp       # Wasp configuration
+├── package.json    # Project dependencies
+└── README.md       # This file
 ```
 
-To start from this repo:
+---
+
+## 🚀 Getting Started
+
 ```bash
 git clone https://github.com/ryanswalters/Norian.git
 cd Norian
+
+# Install dependencies
+npm install
+
+# Start development server
 wasp start
 ```
 
-Or generate a fresh Open SaaS project of your own:
-```bash
-wasp new -t saas
-```
+Note: Wasp will auto-link the backend and generate Prisma models on build.
 
-Create `.env.server` and set:
-```
-AXYN_API_URL=http://localhost:8000
-```
+## 📦 Features
 
-Visit `http://localhost:3000` after the dev server starts.
+| Module           | Description                                        |
+| ---------------- | -------------------------------------------------- |
+| MindForge        | Memory engine (vector + structured)                |
+| PersonalityForge | Style, tone, and personality routing               |
+| SynapseForge     | Plugin architecture for tools + extensions         |
+| CortexForge      | Main API router (FastAPI backend)                  |
+| Sentinel         | Pattern monitor and proactive triggers             |
+| PreferenceForge  | Behavioral learning (food, media, habits)          |
+| Tier System      | Limits features by user level or license           |
 
-## Core Pages
-Route | Purpose
------ | -------
-`/` | Landing page
-`/app` | AI chat UI
-`/admin` | Memory viewer + dev tools (auth gated)
-`/labs` | Experimental features
+## 📄 Docs Status
 
-## AI Agents
-Agents define personality, memory access and optional voice presets. They are stored in `src/agents/registry.ts` and can be selected in the UI. Each agent modifies prompt style, memory behaviour and voice output.
+| File                    | Status      |
+| ----------------------- | ----------- |
+| codex/GETTING_STARTED.md | Coming soon |
+| codex/TASKS.md           | Coming soon |
+| codex/AGENTS.md          | Coming soon |
 
-## Project Structure
-```
-Norian/
-├── main.wasp               # Wasp DSL config
-├── src/
-│   ├── pages/              # React pages
-│   ├── agents/             # Agent definitions
-│   ├── actions/            # Calls to Axyn APIs
-│   ├── components/         # UI components
-│   └── hooks/              # Custom hooks
-└── prisma/
-    └── schema.prisma       # Database models
-```
+When added, Codex will automatically read and follow those markdown guides.
 
-## Development
-Prerequisites: Node.js 18+, Wasp CLI.
-Run `wasp db migrate-dev` then `wasp start` to launch.
+## 🧠 Axyn.ai System Integration
 
-## Features Checklist
-- AI prompt → reply via FastAPI backend
-- Memory viewer
-- Agent selection
-- Voice output (planned)
-- Tiered memory controls (in progress)
-- Usage tracking (in progress)
+Norian is the official frontend for:
 
-## Coming Soon
-- AI memory timeline (journal)
-- Agent store for downloading personas
-- Public mode + shareable bots
-- API rate limiting + tiers
+- Memory recall + structured journal
+- Multi-personality agent management
+- Plugin loading + task delegation
+- Memory export/import system
+- Tier-based quota enforcement
 
-Contributions are welcome! Fork the repo, create a feature branch and open a PR.
+## 🛡 License
+
+- Free for personal and educational use
+- Commercial use requires license (contact the Axyn.ai team)
+
+## 🧠 What’s Next?
+
+You can:
+
+- Build out codex/GETTING_STARTED.md for Codex onboarding
+- Inject the Persona Picker UI
+- Add /store, /agents, /memory, and /dashboard routes
+- Connect Norian to a live CortexForge API backend
+
