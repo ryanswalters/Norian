@@ -12,5 +12,6 @@ export interface MemoryEntry {
   content: string;
   tier?: string;
   timestamp?: string;
+  tags?: string[];
   [key: string]: any;
 }

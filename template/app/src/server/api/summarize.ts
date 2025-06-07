@@ -14,3 +14,15 @@ export const summarizeConversation = async (
   );
   return res.data;
 };
+
+export const summarizeAgentMemory = async (
+  _args: { agentId: string },
+  context: any
+): Promise<{ summary: string }> => {
+  const token = context.user?.token;
+  const res = await axios.get(
+    requireNodeEnvVar('AXYN_API_URL') + `/api/mind/agent/${_args.agentId}/summary`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return res.data;
+};

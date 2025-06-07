@@ -8,3 +8,13 @@ export const createAgent = async (_args: { name: string; description?: string; s
 export const listAgents = async (_args: void, context: any) => {
   return prisma.agent.findMany({ where: { userId: context.user.id } })
 }
+
+export const saveMemorySummary = async (
+  _args: { agentId: string; summary: string },
+  context: any
+) => {
+  return prisma.agent.update({
+    where: { id: _args.agentId, userId: context.user.id },
+    data: { memorySummary: _args.summary }
+  })
+}

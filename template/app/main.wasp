@@ -262,6 +262,16 @@ action exportAgentMemory {
   entities: []
 }
 
+action tagMemoryEntry {
+  fn: import { tagMemoryEntry } from "@server/api/memory.ts",
+  entities: []
+}
+
+action pruneAgentMemory {
+  fn: import { pruneAgentMemory } from "@server/api/memory.ts",
+  entities: []
+}
+
 action AskAgentPublic {
   fn: import { askPublicAgent } from "@server/api/publicAgent.ts",
   entities: []
@@ -289,6 +299,16 @@ action toggleAdvancedMode {
 action SummarizeConversation {
   fn: import { summarizeConversation } from "@server/api/summarize.ts",
   entities: []
+}
+
+action summarizeAgentMemory {
+  fn: import { summarizeAgentMemory } from "@server/api/summarize.ts",
+  entities: []
+}
+
+action saveMemorySummary {
+  fn: import { saveMemorySummary } from "@server/api/agents.ts",
+  entities: [Agent]
 }
 
 

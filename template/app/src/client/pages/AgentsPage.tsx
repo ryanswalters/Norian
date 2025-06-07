@@ -1,10 +1,15 @@
 import { useState } from 'react'
-import { useQuery, listAgents, createAgent } from 'wasp/client/operations'
+import { useQuery, listAgents, createAgent, summarizeAgentMemory, saveMemorySummary } from 'wasp/client/operations'
 
 export default function AgentsPage() {
   const { data: agents, refetch } = useQuery(listAgents)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
+  const handleSummary = async (id: string) => {
+    const res = await summarizeAgentMemory({ agentId: id })
+    await saveMemorySummary({ agentId: id, summary: res.summary })
+    refetch()
+  }
   const handleCreate = async () => {
     await createAgent({ name, description })
     setName(''); setDescription('');
@@ -20,8 +25,12 @@ export default function AgentsPage() {
       </div>
       <ul className='space-y-2'>
         {agents?.map((a: any) => (
-          <li key={a.id} className='border p-2 rounded'>
-            <strong>{a.name}</strong> - {a.description}
+          <li key={a.id} className='border p-2 rounded space-y-1'>
+            <div><strong>{a.name}</strong> - {a.description}</div>
+            {a.memorySummary && (
+              <div className='text-sm text-gray-600'>{a.memorySummary}</div>
+            )}
+            <button className='text-xs underline text-blue-600' onClick={() => handleSummary(a.id)}>Generate Summary</button>
           </li>
         ))}
       </ul>

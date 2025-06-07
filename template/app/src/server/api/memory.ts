@@ -49,3 +49,29 @@ export const exportAgentMemory = async (
   );
   return res.data;
 };
+
+export const tagMemoryEntry = async (
+  _args: { id: string },
+  context: any
+): Promise<string[]> => {
+  const token = context.user?.token;
+  const res = await axios.post(
+    requireNodeEnvVar('AXYN_API_URL') + `/api/mind/${_args.id}/tag`,
+    {},
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return res.data.tags || [];
+};
+
+export const pruneAgentMemory = async (
+  _args: { agentId: string; tiers: string },
+  context: any
+): Promise<{ status: string }> => {
+  const token = context.user?.token;
+  const res = await axios.post(
+    requireNodeEnvVar('AXYN_API_URL') + `/api/mind/agent/${_args.agentId}/prune`,
+    { tiers: _args.tiers },
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return res.data;
+};
