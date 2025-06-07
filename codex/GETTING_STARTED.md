@@ -16,6 +16,7 @@ cd Norian
 
 # Run setup
 ./scripts/setup-dev.sh
+# The script verifies Node.js 18+ and write permissions before installing dependencies.
 wasp start
 ```
 

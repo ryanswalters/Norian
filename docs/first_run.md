@@ -10,7 +10,7 @@
    cd Norian
   ./scripts/setup-dev.sh
   ```
-The script installs dependencies, runs database migrations, seeds demo data, and creates `.env.server` if missing. It will exit with instructions if dependencies cannot be fetched.
+The script installs dependencies, checks your Node.js version (18+ required) and basic write permissions, then runs database migrations, seeds demo data, and creates `.env.server` if missing. It will exit with instructions if any step fails or if packages cannot be fetched.
 
 Run `scripts/dev_bootstrap.sh` afterwards if you want the server started automatically.
 

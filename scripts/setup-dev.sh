@@ -1,14 +1,37 @@
 #!/bin/bash
 set -e
 
-if ! command -v npm >/dev/null; then
-  echo "npm is required. Install Node.js 18+ and try again." >&2
+REQUIRED_NODE_MAJOR=18
+
+if ! command -v node >/dev/null; then
+  echo "Node.js $REQUIRED_NODE_MAJOR+ is required." >&2
   exit 1
 fi
+
+node_version=$(node -v)
+node_major=$(echo "$node_version" | sed -E 's/v([0-9]+).*/\1/')
+
+if [ "$node_major" -lt "$REQUIRED_NODE_MAJOR" ]; then
+  echo "Node.js $REQUIRED_NODE_MAJOR+ required, found $node_version" >&2
+  exit 1
+fi
+
+if ! command -v npm >/dev/null; then
+  echo "npm is required. Install Node.js $REQUIRED_NODE_MAJOR+ and try again." >&2
+  exit 1
+fi
+
 
 if ! command -v wasp >/dev/null; then
   echo "wasp CLI not found. Install with: curl -sSL https://get.wasp.sh/installer.sh | sh" >&2
   exit 1
+fi
+
+if ! touch .setup_write_test 2>/dev/null; then
+  echo "Write permission required in $(pwd)." >&2
+  exit 1
+else
+  rm .setup_write_test
 fi
 
 echo "Installing project dependencies..."

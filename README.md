@@ -56,7 +56,7 @@ npm install
 wasp start
 ```
 
-For convenience, run `scripts/setup-dev.sh` to install dependencies and set up the database. It will abort with a helpful message if packages cannot be installed (for example when network access is disabled).
+For convenience, run `scripts/setup-dev.sh` to install dependencies and set up the database. The script checks that Node.js 18+ is installed and that the current directory is writable, then installs packages. It will abort with a helpful message if packages cannot be installed (for example when network access is disabled).
 
 `scripts/dev_bootstrap.sh` is still available to automate a full start of the development server after setup.
 
