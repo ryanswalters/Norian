@@ -226,22 +226,22 @@ query getAllTasksByUser {
 
 //#region Axyn AI
 action AskAgent {
-  fn: import { askAgent } from "@server/ai/agent.ts",
+  fn: import { askAgent } from "@server/api/agent.ts",
   entities: []
 }
 
 action LogMemory {
-  fn: import { logMemory } from "@server/ai/memory.ts",
+  fn: import { logMemory } from "@server/api/memory.ts",
   entities: []
 }
 
 query getMemoryEntries {
-  fn: import { getMemoryEntries } from "@server/ai/memory.ts",
+  fn: import { getMemoryEntries } from "@server/api/memory.ts",
   entities: []
 }
 
 action AskAgentPublic {
-  fn: import { askPublicAgent } from "@server/ai/publicAgent.ts",
+  fn: import { askPublicAgent } from "@server/api/publicAgent.ts",
   entities: []
 }
 
@@ -265,7 +265,7 @@ action toggleAdvancedMode {
   entities: [User]
 }
 action SummarizeConversation {
-  fn: import { summarizeConversation } from "@server/ai/summarize.ts",
+  fn: import { summarizeConversation } from "@server/api/summarize.ts",
   entities: []
 }
 

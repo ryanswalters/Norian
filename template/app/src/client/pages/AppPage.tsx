@@ -1,5 +1,6 @@
 import { askAgent, summarizeConversation } from 'wasp/client/operations';
 import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import VoiceRecorder from '../components/VoiceRecorder';
 
 type ChatMessage = { role: 'user' | 'assistant'; text: string };
@@ -51,6 +52,7 @@ export default function AppPage() {
     } catch (err) {
       console.error(err);
       setMessages((prev) => [...prev, { role: 'assistant', text: 'Error fetching response.' }]);
+      toast.error('Failed to fetch AI response');
     } finally {
       setLoading(false);
     }
@@ -69,6 +71,7 @@ export default function AppPage() {
     } catch (err) {
       console.error(err);
       setMessages((prev) => [...prev, { role: 'assistant', text: 'Error fetching response.' }]);
+      toast.error('Failed to fetch AI response');
     } finally {
       setLoading(false);
     }

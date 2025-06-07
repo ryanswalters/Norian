@@ -6,3 +6,7 @@ export function requireNodeEnvVar(name: string): string {
     return value;
   }
 }
+
+export function validateServerConfig(): void {
+  ['AXYN_API_URL'].forEach(requireNodeEnvVar);
+}

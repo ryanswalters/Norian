@@ -4,6 +4,7 @@ import CookieConsentBanner from './components/cookie-consent/Banner';
 import { appNavigationItems } from './components/NavBar/contentSections';
 import { landingPageNavigationItems } from '../landing-page/contentSections';
 import { useMemo, useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { routes } from 'wasp/client/router';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from 'wasp/client/auth';
@@ -52,6 +53,7 @@ export default function App() {
         )}
       </div>
       <CookieConsentBanner />
+      <Toaster position='top-right' />
     </>
   );
 }
