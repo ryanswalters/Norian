@@ -181,6 +181,12 @@ page AgentsPage {
   component: import AgentsPage from "@src/client/pages/AgentsPage"
 }
 
+route AgentMemoryRoute { path: "/agents/:agentId/memory", to: AgentMemoryPage }
+page AgentMemoryPage {
+  authRequired: true,
+  component: import AgentMemoryPage from "@src/client/pages/AgentMemoryPage"
+}
+
 query getPaginatedUsers {
   fn: import { getPaginatedUsers } from "@src/user/operations",
   entities: [User]
@@ -243,6 +249,16 @@ action LogMemory {
 
 query getMemoryEntries {
   fn: import { getMemoryEntries } from "@server/api/memory.ts",
+  entities: []
+}
+
+query getAgentMemory {
+  fn: import { getAgentMemory } from "@server/api/memory.ts",
+  entities: []
+}
+
+action exportAgentMemory {
+  fn: import { exportAgentMemory } from "@server/api/memory.ts",
   entities: []
 }
 

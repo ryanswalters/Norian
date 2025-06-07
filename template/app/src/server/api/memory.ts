@@ -25,3 +25,27 @@ export const getMemoryEntries = async (
   });
   return res.data;
 };
+
+export const getAgentMemory = async (
+  _args: { agentId: string },
+  context: any
+): Promise<MemoryEntry[]> => {
+  const token = context.user?.token;
+  const res = await axios.get(
+    requireNodeEnvVar('AXYN_API_URL') + `/api/mind/agent/${_args.agentId}`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return res.data;
+};
+
+export const exportAgentMemory = async (
+  _args: { agentId: string },
+  context: any
+): Promise<any> => {
+  const token = context.user?.token;
+  const res = await axios.get(
+    requireNodeEnvVar('AXYN_API_URL') + `/api/mind/agent/${_args.agentId}/export`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return res.data;
+};
