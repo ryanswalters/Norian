@@ -30,3 +30,5 @@ To run end-to-end tests execute:
 npm run e2e
 ```
 The script will attempt to start `wasp start` automatically. If it fails, check `e2e-backend.log` for errors and try launching the backend manually with `wasp start` before running the command again. Open `/preview` in the browser to confirm the backend is up and view recent memory entries.
+If the script reports that `wasp` is missing, install the Wasp CLI first using
+`curl -sSL https://get.wasp.sh/installer.sh | sh` or `npm install -g @wasp/cli`.

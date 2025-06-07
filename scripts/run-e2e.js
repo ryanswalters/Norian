@@ -5,6 +5,7 @@ const which = require('which');
 
 if (!which.sync('wasp', { nothrow: true })) {
   console.error('Wasp CLI not found. Install it with `npm install -g @wasp/cli` or `curl -sSL https://get.wasp.sh/installer.sh | sh`.');
+  console.error('See docs/first_run.md for details.');
   process.exit(1);
 }
 

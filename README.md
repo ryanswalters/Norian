@@ -122,6 +122,9 @@ In restricted environments (e.g., air-gapped CI or devcontainers without
 network), run `scripts/setup-dev.sh` on a machine with internet first, or
 manually install the packages listed in `package.json`. After dependencies are
 installed you can run `npm test` and `npm run coverage` locally.
+The Wasp CLI must also be installed globally for end-to-end tests. If global
+package installation is blocked, perform the setup on a machine with internet
+access and copy the environment afterward.
 End-to-end tests are implemented with Playwright. `npm run e2e` will start the
 backend automatically if needed, but you can also run `wasp start` in another
 terminal and then execute the command. If the tests fail immediately, ensure the
@@ -140,6 +143,9 @@ works in another terminal and that port `3000` is free. The runner writes backen
 output to `e2e-backend.log`. Check that file for errors and try starting the
 backend manually if the log shows a failure. Visiting `/preview` should display a
 green "live" indicator when the backend is reachable.
+If the command complains that `wasp` cannot be found, install the Wasp CLI with
+`curl -sSL https://get.wasp.sh/installer.sh | sh` or `npm install -g @wasp/cli`.
+See `docs/first_run.md` for details.
 
 ## 🛡 License
 

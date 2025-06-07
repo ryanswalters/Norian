@@ -41,6 +41,7 @@ npm --prefix template/app install -D @vitest/coverage-v8
 ```
 
 If `npm run e2e` reports that it cannot connect, make sure `wasp start` works on its own and that port `3000` is free. The runner writes backend output to `e2e-backend.log`. Inspect that log for errors and try starting the backend manually before running the tests again. Refresh `/preview` to confirm the backend status.
+If the script says `wasp` is missing, install the CLI with `curl -sSL https://get.wasp.sh/installer.sh | sh` or `npm install -g @wasp/cli` and retry.
 
 ## Known Issues
 

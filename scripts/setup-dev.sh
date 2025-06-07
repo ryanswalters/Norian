@@ -23,8 +23,10 @@ fi
 
 
 if ! command -v wasp >/dev/null; then
-  echo "wasp CLI not found. Install with: curl -sSL https://get.wasp.sh/installer.sh | sh" >&2
-  echo "or run: npm install -g @wasp/cli" >&2
+  echo "Wasp CLI not found. Install with one of the following:" >&2
+  echo "  curl -sSL https://get.wasp.sh/installer.sh | sh" >&2
+  echo "  npm install -g @wasp/cli" >&2
+  echo "See docs/first_run.md for more information." >&2
   exit 1
 fi
 
