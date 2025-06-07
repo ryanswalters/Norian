@@ -10,7 +10,12 @@
 ## Quickstart
 
 ```bash
+# Install the Wasp CLI (required for development and E2E tests)
 curl -sSL https://get.wasp.sh/installer.sh | sh
+# or use npm:
+npm install -g @wasp/cli
+
+# (Optional) create a starter SaaS project
 wasp new -t saas
 ```
 
