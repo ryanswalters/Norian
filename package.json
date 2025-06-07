@@ -15,5 +15,8 @@
     "playwright": "^1.42.1",
     "vitest": "^3.2.2",
     "which": "^2.0.2"
+  },
+  "dependencies": {
+    "axios": "^1.9.0"
   }
 }
