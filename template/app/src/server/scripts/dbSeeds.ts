@@ -11,11 +11,31 @@ type MockUserData = Omit<User, 'id'>;
  * For more info see: https://wasp.sh/docs/data-model/backends#seeding-the-database
  */
 export async function seedMockUsers(prismaClient: PrismaClient) {
-  await Promise.all(generateMockUsersData(50).map((data) => prismaClient.user.create({ data })));
+  const users = generateMockUsersData(50);
+  users.push(generateDevUserData());
+  await Promise.all(users.map((data) => prismaClient.user.create({ data })));
 }
 
 function generateMockUsersData(numOfUsers: number): MockUserData[] {
   return faker.helpers.multiple(generateMockUserData, { count: numOfUsers });
+}
+
+function generateDevUserData(): MockUserData {
+  return {
+    email: 'dev@example.com',
+    username: 'devuser',
+    createdAt: new Date(),
+    isAdmin: false,
+    isDev: true,
+    credits: 3,
+    subscriptionStatus: null,
+    lemonSqueezyCustomerPortalUrl: null,
+    paymentProcessorUserId: null,
+    datePaid: null,
+    subscriptionPlan: null,
+    displayName: 'Dev User',
+    preferencesJson: '{}',
+  };
 }
 
 function generateMockUserData(): MockUserData {
@@ -35,6 +55,9 @@ function generateMockUserData(): MockUserData {
     username: faker.internet.userName({ firstName, lastName }),
     createdAt,
     isAdmin: false,
+    isDev: false,
+    displayName: `${firstName} ${lastName}`,
+    preferencesJson: '{}',
     credits,
     subscriptionStatus,
     lemonSqueezyCustomerPortalUrl: null,

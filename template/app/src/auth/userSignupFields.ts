@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { defineUserSignupFields } from 'wasp/auth/providers/types';
 
 const adminEmails = process.env.ADMIN_EMAILS?.split(',') || [];
+const devEmails = process.env.DEV_EMAILS?.split(',') || [];
 
 const emailDataSchema = z.object({
   email: z.string(),
@@ -20,6 +21,12 @@ export const getEmailUserFields = defineUserSignupFields({
     const emailData = emailDataSchema.parse(data);
     return adminEmails.includes(emailData.email);
   },
+  isDev: (data) => {
+    const emailData = emailDataSchema.parse(data);
+    return devEmails.includes(emailData.email);
+  },
+  displayName: () => '',
+  preferencesJson: () => '{}',
 });
 
 const githubDataSchema = z.object({
@@ -53,6 +60,16 @@ export const getGitHubUserFields = defineUserSignupFields({
     }
     return adminEmails.includes(emailInfo.email);
   },
+  isDev: (data) => {
+    const githubData = githubDataSchema.parse(data);
+    const emailInfo = getGithubEmailInfo(githubData);
+    if (!emailInfo.verified) {
+      return false;
+    }
+    return devEmails.includes(emailInfo.email);
+  },
+  displayName: () => '',
+  preferencesJson: () => '{}',
 });
 
 // We are using the first email from the list of emails returned by GitHub.
@@ -92,6 +109,15 @@ export const getGoogleUserFields = defineUserSignupFields({
     }
     return adminEmails.includes(googleData.profile.email);
   },
+  isDev: (data) => {
+    const googleData = googleDataSchema.parse(data);
+    if (!googleData.profile.email_verified) {
+      return false;
+    }
+    return devEmails.includes(googleData.profile.email);
+  },
+  displayName: () => '',
+  preferencesJson: () => '{}',
 });
 
 export function getGoogleAuthConfig() {
@@ -128,6 +154,15 @@ export const getDiscordUserFields = defineUserSignupFields({
     }
     return adminEmails.includes(discordData.profile.email);
   },
+  isDev: (data) => {
+    const discordData = discordDataSchema.parse(data);
+    if (!discordData.profile.email || !discordData.profile.verified) {
+      return false;
+    }
+    return devEmails.includes(discordData.profile.email);
+  },
+  displayName: () => '',
+  preferencesJson: () => '{}',
 });
 
 export function getDiscordAuthConfig() {
