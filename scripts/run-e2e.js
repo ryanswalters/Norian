@@ -1,5 +1,6 @@
 const http = require('http');
 const { spawn } = require('child_process');
+const fs = require('fs');
 const which = require('which');
 
 if (!which.sync('wasp', { nothrow: true })) {
@@ -19,7 +20,7 @@ function checkServer() {
   });
 }
 
-async function waitForServer(maxAttempts = 20) {
+async function waitForServer(maxAttempts = 40) {
   for (let i = 0; i < maxAttempts; i++) {
     if (await checkServer()) return true;
     await new Promise(r => setTimeout(r, 1000));
@@ -29,13 +30,24 @@ async function waitForServer(maxAttempts = 20) {
 
 (async () => {
   let serverProc;
+  let backendReady = false;
   if (!(await checkServer())) {
     console.log('Backend not detected, starting with "wasp start"...');
-    serverProc = spawn('wasp', ['start'], { cwd: 'template/app', stdio: 'inherit' });
+    const logStream = fs.createWriteStream('e2e-backend.log');
+    serverProc = spawn('wasp', ['start'], { cwd: 'template/app' });
+    serverProc.stdout.pipe(logStream);
+    serverProc.stderr.pipe(logStream);
+    serverProc.on('exit', code => {
+      if (!backendReady) {
+        console.error(`Backend exited with code ${code}. Check e2e-backend.log for details.`);
+        process.exit(1);
+      }
+    });
     const ok = await waitForServer();
+    backendReady = ok;
     if (!ok) {
-      console.error('Backend failed to start. Make sure `wasp start` works.');
-      if (serverProc) serverProc.kill();
+      console.error('Backend failed to start after waiting. Check e2e-backend.log and try running "wasp start" manually.');
+      serverProc.kill();
       process.exit(1);
     }
   }

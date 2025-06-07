@@ -135,8 +135,10 @@ early.
 ### Troubleshooting E2E
 
 If `npm run e2e` exits immediately or fails to connect, confirm that `wasp start`
-is able to run and that port `3000` is free. Running `/preview` in the browser
-should display a green "live" indicator when the backend is reachable.
+works in another terminal and that port `3000` is free. The runner writes backend
+output to `e2e-backend.log`. Check that file for errors and try starting the
+backend manually if the log shows a failure. Visiting `/preview` should display a
+green "live" indicator when the backend is reachable.
 
 ## 🛡 License
 

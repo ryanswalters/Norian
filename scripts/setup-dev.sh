@@ -68,4 +68,19 @@ if ! wasp db seed; then
   exit 1
 fi
 
-echo "Setup complete. Run 'npm test' and 'npm run coverage' to verify." 
+echo "Verifying backend can start..."
+wasp start > /tmp/wasp_setup.log 2>&1 &
+SETUP_PID=$!
+for i in {1..20}; do
+  if curl -s http://localhost:3000/ >/dev/null 2>&1; then
+    break
+  fi
+  sleep 1
+done
+if ! kill $SETUP_PID >/dev/null 2>&1; then
+  echo "Backend failed to start. Check /tmp/wasp_setup.log for details." >&2
+  exit 1
+fi
+rm /tmp/wasp_setup.log
+
+echo "Setup complete. Run 'npm test' and 'npm run coverage' to verify."

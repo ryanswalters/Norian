@@ -39,7 +39,7 @@ If the `@vitest/coverage-v8` package is missing, add it with:
 npm --prefix template/app install -D @vitest/coverage-v8
 ```
 
-If `npm run e2e` reports that it cannot connect, make sure `wasp start` is running or let the script start it automatically. Then refresh `/preview` to check the backend status.
+If `npm run e2e` reports that it cannot connect, make sure `wasp start` works on its own and that port `3000` is free. The runner writes backend output to `e2e-backend.log`. Inspect that log for errors and try starting the backend manually before running the tests again. Refresh `/preview` to confirm the backend status.
 
 ## Known Issues
 

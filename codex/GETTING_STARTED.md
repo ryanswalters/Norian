@@ -28,4 +28,4 @@ To run end-to-end tests execute:
 ```bash
 npm run e2e
 ```
-The script will start `wasp start` automatically if it isn't already running. Open `/preview` in the browser to confirm the backend is up and view recent memory entries.
+The script will attempt to start `wasp start` automatically. If it fails, check `e2e-backend.log` for errors and try launching the backend manually with `wasp start` before running the command again. Open `/preview` in the browser to confirm the backend is up and view recent memory entries.
