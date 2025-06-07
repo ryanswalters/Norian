@@ -157,6 +157,12 @@ page PreferencesPage {
   component: import PreferencesPage from "@src/client/pages/PreferencesPage"
 }
 
+route GlobalSettingsRoute { path: "/settings/global", to: GlobalSettingsPage }
+page GlobalSettingsPage {
+  authRequired: true,
+  component: import GlobalSettingsPage from "@src/client/pages/GlobalSettingsPage"
+}
+
 route PersonalitiesRoute { path: "/personalities", to: PersonalitiesPage }
 page PersonalitiesPage {
   authRequired: true,
@@ -261,6 +267,21 @@ action SummarizeConversation {
 query getPublicUser {
   fn: import { getPublicUser } from "@server/preferences.ts",
   entities: [User]
+}
+
+query qdrantHealth {
+  fn: import { qdrantHealth } from "@server/qdrant.ts",
+  entities: []
+}
+
+query diagnostics {
+  fn: import { diagnostics } from "@server/diagnostics.ts",
+  entities: []
+}
+
+query exportConfig {
+  fn: import { exportConfig } from "@server/configExport.ts",
+  entities: []
 }
 //#endregion
 

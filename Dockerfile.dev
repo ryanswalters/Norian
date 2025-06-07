@@ -1,0 +1,5 @@
+FROM node:18
+WORKDIR /app
+COPY . .
+RUN cd template/app && npm install
+CMD ["wasp", "start"]

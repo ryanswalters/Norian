@@ -1,0 +1,9 @@
+FROM node:18 AS builder
+WORKDIR /app
+COPY . .
+RUN cd template/app && npm install && npm run build
+
+FROM node:18
+WORKDIR /app
+COPY --from=builder /app/template/app .
+CMD ["node", "server.js"]

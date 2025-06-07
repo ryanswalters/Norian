@@ -9,6 +9,7 @@ export default function AppPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
   const [summary, setSummary] = useState<string | null>(null);
+  const [tokenUsage, setTokenUsage] = useState(0);
   const personalities = ['default', 'mentor', 'sarcastic', 'stoic', 'flirty', 'cowboy'];
   const [selected, setSelected] = useState<string>(() => localStorage.getItem('personality') || 'default');
   const voiceStyles = ['neutral', 'stoic', 'friendly', 'sarcastic', 'flirty', 'cowboy'];
@@ -45,6 +46,8 @@ export default function AppPage() {
       const reply = res?.reply || res?.response || JSON.stringify(res);
       setMessages((prev) => [...prev, { role: 'assistant', text: reply }]);
       speak(reply);
+      const used = Math.ceil((currentPrompt.length + reply.length) / 4);
+      setTokenUsage((u) => u + used);
     } catch (err) {
       console.error(err);
       setMessages((prev) => [...prev, { role: 'assistant', text: 'Error fetching response.' }]);
@@ -61,6 +64,8 @@ export default function AppPage() {
       const reply = res?.reply || res?.response || JSON.stringify(res);
       setMessages((prev) => [...prev, { role: 'assistant', text: reply }]);
       speak(reply);
+      const used = Math.ceil((text.length + reply.length) / 4);
+      setTokenUsage((u) => u + used);
     } catch (err) {
       console.error(err);
       setMessages((prev) => [...prev, { role: 'assistant', text: 'Error fetching response.' }]);
@@ -144,6 +149,9 @@ export default function AppPage() {
           Summarize
         </button>
       </div>
+      <footer className='text-sm text-gray-500 pt-4'>
+        Tokens used: {tokenUsage}
+      </footer>
     </div>
   );
 }

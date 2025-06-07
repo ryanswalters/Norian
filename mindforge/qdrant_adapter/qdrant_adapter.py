@@ -23,6 +23,15 @@ class QdrantAdapter:
                                             vectors_config=rest.VectorParams(size=768, distance=rest.Distance.COSINE))
         logger.info("Connected to Qdrant at %s:%s", host, port)
 
+    def health_check(self) -> bool:
+        """Return True if the Qdrant service is reachable"""
+        try:
+            self.client.get_collections()
+            return True
+        except Exception as e:  # pragma: no cover - network failure
+            logger.error("Qdrant health check failed: %s", e)
+            return False
+
     def upsert_vector(self, id: str, embedding: List[float], payload: dict):
         logger.debug("Upserting vector %s", id)
         self.client.upsert(collection_name=self.collection,
