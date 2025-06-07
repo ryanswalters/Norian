@@ -248,133 +248,133 @@ query getAllTasksByUser {
 //#endregion
 
 //#region Axyn AI
-action AskAgent {
-  fn: import { askAgent } from "@server/api/agent.ts",
+action askAgent {
+  fn: import { askAgent } from "@src/server/api/agent.ts",
   entities: []
 }
 
-action LogMemory {
-  fn: import { logMemory } from "@server/api/memory.ts",
+action logMemory {
+  fn: import { logMemory } from "@src/server/api/memory.ts",
   entities: []
 }
 
 query getMemoryEntries {
-  fn: import { getMemoryEntries } from "@server/api/memory.ts",
+  fn: import { getMemoryEntries } from "@src/server/api/memory.ts",
   entities: []
 }
 
 query getAgentMemory {
-  fn: import { getAgentMemory } from "@server/api/memory.ts",
+  fn: import { getAgentMemory } from "@src/server/api/memory.ts",
   entities: []
 }
 
 action exportAgentMemory {
-  fn: import { exportAgentMemory } from "@server/api/memory.ts",
+  fn: import { exportAgentMemory } from "@src/server/api/memory.ts",
   entities: []
 }
 
 action tagMemoryEntry {
-  fn: import { tagMemoryEntry } from "@server/api/memory.ts",
+  fn: import { tagMemoryEntry } from "@src/server/api/memory.ts",
   entities: []
 }
 
 action pruneAgentMemory {
-  fn: import { pruneAgentMemory } from "@server/api/memory.ts",
+  fn: import { pruneAgentMemory } from "@src/server/api/memory.ts",
   entities: []
 }
 
-action AskAgentPublic {
-  fn: import { askPublicAgent } from "@server/api/publicAgent.ts",
+action askAgentPublic {
+  fn: import { askPublicAgent } from "@src/server/api/publicAgent.ts",
   entities: []
 }
 
 query getPreferences {
-  fn: import { getPreferences } from "@server/preferences.ts",
+  fn: import { getPreferences } from "@src/server/preferences.ts",
   entities: [User, Preferences]
 }
 
 action updatePreferences {
-  fn: import { updatePreferences } from "@server/preferences.ts",
+  fn: import { updatePreferences } from "@src/server/preferences.ts",
   entities: [Preferences]
 }
 
 action togglePublicMode {
-  fn: import { togglePublicMode } from "@server/preferences.ts",
+  fn: import { togglePublicMode } from "@src/server/preferences.ts",
   entities: [User]
 }
 
 action toggleAdvancedMode {
-  fn: import { toggleAdvancedMode } from "@server/preferences.ts",
+  fn: import { toggleAdvancedMode } from "@src/server/preferences.ts",
   entities: [User]
 }
-action SummarizeConversation {
-  fn: import { summarizeConversation } from "@server/api/summarize.ts",
+action summarizeConversation {
+  fn: import { summarizeConversation } from "@src/server/api/summarize.ts",
   entities: []
 }
 
 action summarizeAgentMemory {
-  fn: import { summarizeAgentMemory } from "@server/api/summarize.ts",
+  fn: import { summarizeAgentMemory } from "@src/server/api/summarize.ts",
   entities: []
 }
 
 action saveMemorySummary {
-  fn: import { saveMemorySummary } from "@server/api/agents.ts",
+  fn: import { saveMemorySummary } from "@src/server/api/agents.ts",
   entities: [Agent]
 }
 
 
 query getPublicUser {
-  fn: import { getPublicUser } from "@server/preferences.ts",
+  fn: import { getPublicUser } from "@src/server/preferences.ts",
   entities: [User]
 }
 
 query qdrantHealth {
-  fn: import { qdrantHealth } from "@server/qdrant.ts",
+  fn: import { qdrantHealth } from "@src/server/qdrant.ts",
   entities: []
 }
 
 query searchVector {
-  fn: import { searchVector } from "@server/qdrant.ts",
+  fn: import { searchVector } from "@src/server/qdrant.ts",
   entities: []
 }
 
 action createAgent {
-  fn: import { createAgent } from "@server/api/agents.ts",
+  fn: import { createAgent } from "@src/server/api/agents.ts",
   entities: [Agent]
 }
 
 action updateAgentRetention {
-  fn: import { updateAgentRetention } from "@server/api/agents.ts",
+  fn: import { updateAgentRetention } from "@src/server/api/agents.ts",
   entities: [Agent]
 }
 
 action duplicateAgent {
-  fn: import { duplicateAgent } from "@server/api/agents.ts",
+  fn: import { duplicateAgent } from "@src/server/api/agents.ts",
   entities: [Agent]
 }
 
 action archiveAgent {
-  fn: import { archiveAgent } from "@server/api/agents.ts",
+  fn: import { archiveAgent } from "@src/server/api/agents.ts",
   entities: [Agent]
 }
 
 query listAgents {
-  fn: import { listAgents } from "@server/api/agents.ts",
+  fn: import { listAgents } from "@src/server/api/agents.ts",
   entities: [Agent]
 }
 
 query diagnostics {
-  fn: import { diagnostics } from "@server/diagnostics.ts",
+  fn: import { diagnostics } from "@src/server/diagnostics.ts",
   entities: []
 }
 
 query codexDebug {
-  fn: import { codexDebug } from "@server/debugCodex.ts",
+  fn: import { codexDebug } from "@src/server/debugCodex.ts",
   entities: [Agent]
 }
 
 query exportConfig {
-  fn: import { exportConfig } from "@server/configExport.ts",
+  fn: import { exportConfig } from "@src/server/configExport.ts",
   entities: []
 }
 //#endregion

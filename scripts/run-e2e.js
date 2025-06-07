@@ -20,7 +20,7 @@ function checkServer() {
   });
 }
 
-async function waitForServer(maxAttempts = 40) {
+async function waitForServer(maxAttempts = 120) {
   for (let i = 0; i < maxAttempts; i++) {
     if (await checkServer()) return true;
     await new Promise(r => setTimeout(r, 1000));
