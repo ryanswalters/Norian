@@ -31,6 +31,7 @@ export default function AdminPage() {
       setEntries((prev) => [...prev, { id: Date.now(), text: newEntry }]);
       setNewEntry('');
     } catch (err) {
+      alert('Failed to inject memory. Please try again.');
       console.error(err);
     }
   };
