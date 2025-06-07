@@ -3,6 +3,7 @@ import { logMemory } from 'wasp/client/operations';
 import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.js';
+import toast from 'react-hot-toast';
 
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 import { useNavigate } from 'react-router-dom';
@@ -36,14 +37,17 @@ export default function AdminPage() {
       await logMemory({ memory: newEntry });
       setEntries((prev) => [...prev, { id: Date.now(), text: newEntry }]);
       setNewEntry('');
+      toast.success('Memory logged');
     } catch (err) {
       console.error(err);
+      toast.error('Failed to log memory');
     }
   };
 
   const handleClear = () => {
     if (confirm('This will erase all memory entries. Continue?')) {
       setEntries([]);
+      toast('Memory cleared');
     }
   };
 

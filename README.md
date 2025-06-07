@@ -28,6 +28,7 @@ norian/
 ```
 
 ![Architecture diagram](docs/architecture.svg)
+![Memory diagnostics screenshot](docs/diagnostics.png)
 
 ---
 
@@ -53,6 +54,8 @@ wasp start
 
 For convenience, run `scripts/dev_bootstrap.sh` to install deps, migrate, seed, and start the server.
 
+See `docs/first_run.md` for a detailed first-time setup walkthrough.
+
 Note: Wasp will auto-link the backend and generate Prisma models on build.
 
 ## 📦 Features
@@ -73,13 +76,16 @@ Short → Mid → Long → Superlong
 
 Each tier has configurable TTL. See Agents page to adjust.
 
+For advanced memory analysis tools, see `docs/diagnostics.md`.
+
 ## 📄 Docs Status
 
 | File                    | Status      |
 | ----------------------- | ----------- |
-| codex/GETTING_STARTED.md | Coming soon |
-| codex/TASKS.md           | Coming soon |
-| codex/AGENTS.md          | Coming soon |
+| codex/GETTING_STARTED.md | Setup guide |
+| codex/TASKS.md           | Task list |
+| codex/AGENTS.md          | Agent docs |
+| docs/diagnostics.md      | Memory tools |
 
 When added, Codex will automatically read and follow those markdown guides.
 

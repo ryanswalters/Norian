@@ -143,6 +143,7 @@ model Agent {
   description String?
   style       String?
   isPublic    Boolean  @default(false)
+  archived    Boolean  @default(false)
   memorySummary String?
   shortTermDays Int? @default(3)
   midTermDays Int? @default(14)

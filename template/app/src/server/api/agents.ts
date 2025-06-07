@@ -9,6 +9,16 @@ export const listAgents = async (_args: void, context: any) => {
   return prisma.agent.findMany({ where: { userId: context.user.id } })
 }
 
+export const duplicateAgent = async (_args: { agentId: string }, context: any) => {
+  const a = await prisma.agent.findFirst({ where: { id: _args.agentId, userId: context.user.id } })
+  if (!a) throw new Error('Not found')
+  return prisma.agent.create({ data: { name: a.name + ' Copy', description: a.description, style: a.style, userId: context.user.id } })
+}
+
+export const archiveAgent = async (_args: { agentId: string; archived: boolean }, context: any) => {
+  return prisma.agent.update({ where: { id: _args.agentId, userId: context.user.id }, data: { archived: _args.archived } })
+}
+
 export const saveMemorySummary = async (
   _args: { agentId: string; summary: string },
   context: any

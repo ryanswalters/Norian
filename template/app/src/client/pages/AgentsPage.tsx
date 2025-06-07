@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { useQuery, listAgents, createAgent, summarizeAgentMemory, saveMemorySummary, updateAgentRetention } from 'wasp/client/operations'
+import { useQuery, listAgents, createAgent, summarizeAgentMemory, saveMemorySummary, updateAgentRetention, duplicateAgent, archiveAgent } from 'wasp/client/operations'
+import toast from 'react-hot-toast'
 import useVoiceForge from '../hooks/useVoiceForge'
 
 export default function AgentsPage() {
@@ -17,7 +18,9 @@ export default function AgentsPage() {
     refetch()
   }
   const handleCreate = async () => {
+    if(!name.trim()){toast.error('Name required');return}
     await createAgent({ name, description })
+    toast.success('Agent created')
     setName(''); setDescription('');
     refetch()
   }
@@ -55,6 +58,12 @@ export default function AgentsPage() {
             <button className='text-xs underline text-blue-600' onClick={() => handleSummary(a.id)}>Generate Summary</button>
             <button className='text-xs underline text-green-600' onClick={() => speak(`Hello from ${a.name}`)}>Preview Voice</button>
             <button className='text-xs underline' onClick={() => handleExport(a)}>Export</button>
+            <button className='text-xs underline' onClick={() => duplicateAgent({agentId:a.id}).then(refetch)}>Duplicate</button>
+            {a.archived ? (
+              <button className='text-xs underline' onClick={() => archiveAgent({agentId:a.id, archived:false}).then(refetch)}>Restore</button>
+            ) : (
+              <button className='text-xs underline text-red-600' onClick={() => archiveAgent({agentId:a.id, archived:true}).then(refetch)}>Archive</button>
+            )}
           </li>
         ))}
       </ul>

@@ -342,6 +342,16 @@ action updateAgentRetention {
   entities: [Agent]
 }
 
+action duplicateAgent {
+  fn: import { duplicateAgent } from "@server/api/agents.ts",
+  entities: [Agent]
+}
+
+action archiveAgent {
+  fn: import { archiveAgent } from "@server/api/agents.ts",
+  entities: [Agent]
+}
+
 query listAgents {
   fn: import { listAgents } from "@server/api/agents.ts",
   entities: [Agent]
